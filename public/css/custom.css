@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
 textarea.form-paper-control {
     height: auto;
     box-sizing: border-box;
@@ -10,10 +12,15 @@ textarea.form-paper-control {
     height: 36px;
     padding: 6px 12px;
     width: 100%;
+    font: 15px/25px "Open Sans",sans-serif;
+}
+
+.form-paper-control {
+    background-color: #fff;
 }
 
 .form-paper-control:focus {
-    background-color: #fffde3;
+    background-color: #E5FFE3;
     box-shadow: 0 4px 6px #333;
     color: #000;
     overflow-y: hidden;
@@ -22,6 +29,7 @@ textarea.form-paper-control {
 legend input[type=text] {
     font-weight: bold;
     text-align: center;
+    font-size: 20px;
 }
 
 label {
