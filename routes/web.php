@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/names', 'NameController@index');
+
+/**
+ * Names
+ */
+Route::get('/names/new', 'NameController@create');
+Route::post('/names/new', 'NameController@store');
+
+Route::get('/name/{id?}', 'NameController@show');
+Route::post('/name/{id?}', 'NameController@update');
+

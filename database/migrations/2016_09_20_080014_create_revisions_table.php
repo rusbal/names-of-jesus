@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNamesTable extends Migration
+class CreateRevisionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,15 @@ class CreateNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('names', function (Blueprint $table) {
+        Schema::create('revisions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('name_id');
+            $table->string('name');
+            $table->text('verse');
+            $table->text('meaning_function');
+            $table->text('identical_titles');
+            $table->text('significance');
+            $table->text('responsibility');
             $table->timestamps();
         });
     }
@@ -26,6 +33,6 @@ class CreateNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('names');
+        Schema::dropIfExists('revisions');
     }
 }
