@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Names List<a href="{{ url('/names/new') }}" class="btn btn-primary">New</a></div>
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left"> Names List </h3>
+                    <a href="{{ url('/names/new') }}" class="btn btn-primary pull-right">New</a>
+                    <div class="clearfix"></div>
+                </div>
 
             @if (session('status'))
                 <div class="alert alert-success">
