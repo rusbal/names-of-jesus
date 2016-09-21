@@ -78,5 +78,6 @@
     @yield('content')
 
     <!-- Scripts -->
+    @yield('footer_script')
 </body>
 </html>

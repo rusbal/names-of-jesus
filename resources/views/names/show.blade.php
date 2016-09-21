@@ -63,6 +63,10 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('footer_script')
 <script>
 $(function(){
     var serialized = $('#names-show').serialize();
@@ -76,4 +80,3 @@ $(function(){
 });
 </script>
 @endsection
-
