@@ -1,4 +1,6 @@
 
+window.autosize = require('autosize');
+
 window._ = require('lodash');
 
 /**
