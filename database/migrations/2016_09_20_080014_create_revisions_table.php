@@ -16,6 +16,7 @@ class CreateRevisionsTable extends Migration
         Schema::create('revisions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('name_id');
+            $table->integer('user_id');
             $table->string('name');
             $table->text('verse');
             $table->text('meaning_function');

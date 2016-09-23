@@ -18,7 +18,9 @@
             @endif
 
             @if ($names->isEmpty())
-                <p> There is no name.</p>
+                <div class="panel-body">
+                    There is no name.
+                </div>
             @else
                 <table class="table">
                     <tbody>

@@ -12,4 +12,10 @@ class Revision extends Model
     {
         return $this->belongsTo('App\Name');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

@@ -13,7 +13,7 @@ class NameController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', array('except' => 'index'));
     }
 
     public function index()
@@ -30,12 +30,9 @@ class NameController extends Controller
 
     public function store(NameFormRequest $request)
     {
-        $name = new Name(array());
+        $name = Name::create();
 
-        $name->save();
-
-        $id = $name->id;
-        $revision = $this->save_revision($id, $request->get('name'));
+        $revision = $this->save_revision($name, $request->all());
 
         return redirect('/names/new')->with('status', 'Newly added: ' . $revision->name); 
     }
@@ -49,32 +46,29 @@ class NameController extends Controller
     public function update(Request $request)
     {
         $id = $request->get('id');
+        $name = Name::with('revision')->whereId($id)->firstOrFail();
 
-        $revision = $this->save_revision($id, 
-            $request->get('name'),
-            $request->get('verse'),
-            $request->get('meaning_function'),
-            $request->get('identical_titles'),
-            $request->get('significance'),
-            $request->get('responsibility')
-        );
+        $revision = $this->save_revision($name, $request->all());
 
         return redirect()->back()->with('status', 'Updated: ' . $revision->name); 
     }
 
-    private function save_revision($id, $name, $verse='', $meaning_function='', $identical_titles='', $significance='', $responsibility='')
+    private function save_revision($name, $data)
     {
-        $revision = new Revision(array(
-            'name_id'          => $id,
-            'name'             => $name,
-            'verse'            => $verse,
-            'meaning_function' => $meaning_function,
-            'identical_titles' => $identical_titles,
-            'significance'     => $significance,
-            'responsibility'   => $responsibility
-        ));
+        $data = array_add($data, 'name_id', $name->id);
 
-        $revision->save();
+        /**
+         * Default to empty string
+         */
+        $data['verse']            = isset($data['verse']) ? $data['verse'] : '';
+        $data['meaning_function'] = isset($data['meaning_function']) ? $data['meaning_function'] : '';
+        $data['identical_titles'] = isset($data['identical_titles']) ? $data['identical_titles'] : '';
+        $data['significance']     = isset($data['significance']) ? $data['significance'] : '';
+        $data['responsibility']   = isset($data['responsibility']) ? $data['responsibility'] : '';
+
+        $revision = new Revision($data);
+
+        \Auth::user()->revisions()->save($revision);
 
         return $revision;
     }
