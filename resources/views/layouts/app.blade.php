@@ -74,6 +74,9 @@
 
     @yield('content')
 
+    <!-- include('stats') -->
+    <!-- include('prayers') -->
+
     <!-- Scripts -->
     @yield('footer_script')
 </body>
