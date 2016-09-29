@@ -77,6 +77,9 @@ $(function(){
     });
     
     autosize($('textarea'));
+
+    $('#names-show').arrowNextField();
 });
+
 </script>
 @endsection

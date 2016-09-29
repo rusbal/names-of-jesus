@@ -15,8 +15,10 @@ require('laravel-elixir-vue');
 
 elixir(mix => {
     mix.sass('app.scss')
-       // .browserify('app.js');
-       .webpack('app.js');
+       .webpack([
+           'app.js', 
+           'arrownextfield.jquery.js'
+       ], 'public/js/app.js');
 
     mix.version(['public/css/app.css',
                  'public/js/app.js']);
