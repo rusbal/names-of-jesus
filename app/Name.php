@@ -23,6 +23,13 @@ class Name extends Model
         return $this->hasMany(Revision::class)->pluck('revision_title', 'id');
     }
 
+    public function save_revision($data)
+    {
+        $data['user_id'] = \Auth::user()->id;
+
+        return $this->revisions()->create($data);
+    }
+
     /**
      * Static
      */

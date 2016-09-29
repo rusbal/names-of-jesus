@@ -35,10 +35,8 @@ class NameController extends Controller
         return redirect('/names/new')->with('status', 'Newly added: ' . $request->get('name')); 
     }
 
-    public function show($id)
+    public function show(Name $name)
     {
-        $name = Name::with('revision')->whereId($id)->firstOrFail();
-
         $revisions = $name->revisions()
             ->select('revision_title', 'id', 'created_at')
             ->orderBy('id', 'desc')
@@ -49,34 +47,10 @@ class NameController extends Controller
         return view('names.show', compact('name', 'revisions'));
     }
 
-    public function update(Request $request)
+    public function update(Name $name, Request $request)
     {
-        $id = $request->get('id');
-        $name = Name::with('revision')->whereId($id)->firstOrFail();
+        $name->save_revision($request->all());
 
-        $revision = $this->save_revision($name, $request->all());
-
-        return redirect()->back()->with('status', 'Saved on revision: ' . $revision->revision_title); 
-    }
-
-    private function save_revision($name, $data)
-    {
-        $data = array_add($data, 'name_id', $name->id);
-
-        /**
-         * Default to empty string
-         */
-        $data['revision_title']   = isset($data['revision_title']) ? $data['revision_title'] : 'New';
-        $data['verse']            = isset($data['verse']) ? $data['verse'] : '';
-        $data['meaning_function'] = isset($data['meaning_function']) ? $data['meaning_function'] : '';
-        $data['identical_titles'] = isset($data['identical_titles']) ? $data['identical_titles'] : '';
-        $data['significance']     = isset($data['significance']) ? $data['significance'] : '';
-        $data['responsibility']   = isset($data['responsibility']) ? $data['responsibility'] : '';
-
-        $revision = new Revision($data);
-
-        \Auth::user()->revisions()->save($revision);
-
-        return $revision;
+        return redirect()->back()->with('status', 'Saved on revision: ' . $request->get('revision_title')); 
     }
 }
