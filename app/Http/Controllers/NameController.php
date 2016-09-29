@@ -50,7 +50,7 @@ class NameController extends Controller
 
         $revision = $this->save_revision($name, $request->all());
 
-        return redirect()->back()->with('status', 'Updated: ' . $revision->name); 
+        return redirect()->back()->with('status', 'Saved on revision: ' . $revision->revision_title); 
     }
 
     private function save_revision($name, $data)

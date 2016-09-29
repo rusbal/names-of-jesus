@@ -1,5 +1,6 @@
 
 window.autosize = require('autosize');
+window.bootbox = require('bootbox');
 
 window._ = require('lodash');
 

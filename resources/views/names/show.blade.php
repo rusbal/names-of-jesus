@@ -18,6 +18,7 @@
 
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                 <input type="hidden" name="id" value="{!! $name->id !!}">
+                <input type="hidden" id="revision_title" name="revision_title" value="">
                 <fieldset>
                     <legend><input class="form-paper-control" type="text" id="name" name="name" value="{!! $name->revision->name !!}" autocomplete="off"></legend>
                     <div class="form-group">
@@ -54,7 +55,8 @@
                     <div class="form-group">
                         <div class="col-lg-9 col-lg-offset-3">
                             <input class="btn btn-default" type="reset">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input id="submit" type="button" class="btn btn-primary" value="Submit">
+                            <button id="submit-hidden"></button>
                         </div>
                     </div>
                 </fieldset>
@@ -69,13 +71,30 @@
 @section('footer_script')
 <script>
 $(function(){
+
     var serialized = $('#names-show').serialize();
-    $('#names-show').on('submit', function(e){
+
+    $('#submit').on('click', function(){
         if (serialized == $('#names-show').serialize()) {
+            return;
+        }
+
+        bootbox.prompt("Save with tag:", function(result){ 
+            if (result !== null) {
+                result = result != '' ? result : 'Empty';
+                $('#revision_title').val(result);
+                $('#submit-hidden').click();
+            }
+        });
+    });
+
+    $('#names-show').on('submit', function(e){
+        if ($('#revision_title').val() == '') {
             e.preventDefault();
+            $('#submit').click();
         }
     });
-    
+
     autosize($('textarea'));
 
     $('#names-show').arrowNextField();

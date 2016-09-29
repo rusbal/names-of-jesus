@@ -44,11 +44,11 @@
                 tabindex = parseInt($this.data('tabindex'));
 
             if ($this.is('textarea')) {
-                if ((direction == 'left' || direction == 'up') && selStart == 0) {
+                if (direction == 'up' && selStart == 0) {
                     $('[data-tabindex=' + (tabindex - 1) + ']').focus();
                     return true;
 
-                } else if ((direction == 'right' || direction == 'down') && (selStart == $this.val().length)) {
+                } else if (direction == 'down' && (selStart == $this.val().length)) {
                     $('[data-tabindex=' + (tabindex + 1) + ']').focus();
                     return true;
                 }
@@ -70,18 +70,8 @@
          * Call arrowToField() when arrow keys are pressed.
          */
         this.find(settings.selector).keydown(function(e){
-            if (e.keyCode == 37) {
-                if (arrowToField($(this), 'left')) {
-                    e.preventDefault();
-                }
-
-            } else if (e.keyCode == 38) {
+            if (e.keyCode == 38) {
                 if (arrowToField($(this), 'up')) {
-                    e.preventDefault();
-                }
-
-            } else if (e.keyCode == 39) {
-                if (arrowToField($(this), 'right')) {
                     e.preventDefault();
                 }
 
