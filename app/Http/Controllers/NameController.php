@@ -60,6 +60,7 @@ class NameController extends Controller
         /**
          * Default to empty string
          */
+        $data['revision_title']   = isset($data['revision_title']) ? $data['revision_title'] : 'New';
         $data['verse']            = isset($data['verse']) ? $data['verse'] : '';
         $data['meaning_function'] = isset($data['meaning_function']) ? $data['meaning_function'] : '';
         $data['identical_titles'] = isset($data['identical_titles']) ? $data['identical_titles'] : '';

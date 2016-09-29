@@ -17,6 +17,7 @@ class CreateRevisionsTable extends Migration
             $table->increments('id');
             $table->integer('name_id');
             $table->integer('user_id');
+            $table->string('revision_title');
             $table->string('name');
             $table->text('verse');
             $table->text('meaning_function');
