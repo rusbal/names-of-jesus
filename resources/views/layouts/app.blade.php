@@ -79,5 +79,6 @@
 
     <!-- Scripts -->
     @yield('footer_script')
+    @include('_footer')
 </body>
 </html>

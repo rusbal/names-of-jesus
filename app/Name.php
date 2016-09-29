@@ -17,4 +17,9 @@ class Name extends Model
     {
         return $this->hasOne('App\Revision')->latest();
     }
+
+    public function revision_array()
+    {
+        return $this->hasMany(Revision::class)->pluck('revision_title', 'id');
+    }
 }

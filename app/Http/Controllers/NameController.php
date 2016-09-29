@@ -40,7 +40,10 @@ class NameController extends Controller
     public function show($id)
     {
         $name = Name::with('revision')->whereId($id)->firstOrFail();
-        return view('names.show', compact('name'));
+
+        $revisions = $name->revisions()->select('revision_title', 'id', 'created_at')->get();
+
+        return view('names.show', compact('name', 'revisions'));
     }
 
     public function update(Request $request)
