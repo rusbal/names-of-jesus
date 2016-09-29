@@ -30,18 +30,21 @@ class NameController extends Controller
 
     public function store(NameFormRequest $request)
     {
-        $name = Name::create();
+        $name = Name::create_and_init_revision($request->get('name'));
 
-        $revision = $this->save_revision($name, $request->all());
-
-        return redirect('/names/new')->with('status', 'Newly added: ' . $revision->name); 
+        return redirect('/names/new')->with('status', 'Newly added: ' . $request->get('name')); 
     }
 
     public function show($id)
     {
         $name = Name::with('revision')->whereId($id)->firstOrFail();
 
-        $revisions = $name->revisions()->select('revision_title', 'id', 'created_at')->get();
+        $revisions = $name->revisions()
+            ->select('revision_title', 'id', 'created_at')
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get()
+            ->reverse();
 
         return view('names.show', compact('name', 'revisions'));
     }

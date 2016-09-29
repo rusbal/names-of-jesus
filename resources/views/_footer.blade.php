@@ -1,5 +1,5 @@
 <script>
 setTimeout(function() {
     $('.alert').slideUp('slow');
-}, 1000);
+}, 2000);
 </script>

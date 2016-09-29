@@ -21,3 +21,25 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Name::class, function (Faker\Generator $faker) {
+    return [];
+});
+
+$factory->define(App\Revision::class, function (Faker\Generator $faker) {
+
+    $names = App\Name::select('id')->pluck('id');
+    $users = App\User::select('id')->pluck('id');
+
+    return [
+        'name_id'          => $names->random(),
+        'user_id'          => $users->random(),
+        'revision_title'   => ucfirst(implode(' ', $faker->words(3))),
+        'name'             => $faker->firstNameMale . ' ' . $faker->lastName,
+        'verse'            => $faker->paragraph,
+        'meaning_function' => $faker->paragraph,
+        'identical_titles' => $faker->paragraph,
+        'significance'     => $faker->paragraph,
+        'responsibility'   => $faker->paragraph,
+    ];
+});

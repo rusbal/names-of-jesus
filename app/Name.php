@@ -22,4 +22,33 @@ class Name extends Model
     {
         return $this->hasMany(Revision::class)->pluck('revision_title', 'id');
     }
+
+    /**
+     * Static
+     */
+    static public function create_and_init_revision($name = null)
+    {
+        if ($name) {
+            $name = parent::create([]);
+            $name->init_revision($name);
+        }
+    }
+
+    /**
+     * Private
+     */
+    private function init_revision($name)
+    {
+        $data = array(
+            'revision_title'   => 'New',
+            'name'             => $name,
+            'verse'            => '',
+            'meaning_function' => '',
+            'identical_titles' => '',
+            'significance'     => '',
+            'responsibility'   => '',
+            'user_id'          => \Auth::user()->id,
+        );
+        return $this->revisions()->create($data);
+    }
 }

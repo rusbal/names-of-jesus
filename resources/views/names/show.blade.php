@@ -4,20 +4,23 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="well">
+            <div class="well well-sm clearfix">
+                <div class="pull-right">
                 @foreach ($revisions as $revision)
                     @if ($revision->revision_title != 'New')
                         <!-- Single button -->
                         <div class="btn-group">
-                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                ({{ $revision->created_at->format('d.M hA') . ') ' . $revision->revision_title }} 
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                {{ Illuminate\Support\Str::words($revision->revision_title, 5, '...') }}
                                 <span class="caret"></span> </button>
-                          <ul class="dropdown-menu">
-                            <li> {!! link_to_route('revision', 'View', [$revision->id]) !!} </li>
-                          </ul>
+                            <ul class="dropdown-menu">
+                                <li>{{ $revision->created_at->diffForHumans() }}</li>
+                                <li> {!! link_to_route('revision', 'View', [$revision->id]) !!} </li>
+                            </ul>
                         </div>
                     @endif
                 @endforeach
+                </div>
             </div>
         </div>
     </div>
