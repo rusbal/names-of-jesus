@@ -11,15 +11,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Raymond Usbal',
-            'email' => 'raymond@philippinedev.com',
+        $faker = Faker\Factory::create('en_US');
+
+        App\User::create([
+            'name'     => 'Raymond Usbal',
+            'email'    => 'raymond@philippinedev.com',
             'password' => bcrypt('default'),
+            'color'    => $faker->hexcolor,
         ]);
-        DB::table('users')->insert([
-            'name' => 'Arthur Macarubbo',
-            'email' => 'arthur.macarubbo@yahoo.com',
+
+        App\User::create([
+            'name'     => 'Arthur Macarubbo',
+            'email'    => 'arthur.macarubbo@yahoo.com',
             'password' => bcrypt('default'),
+            'color'    => $faker->hexcolor,
         ]);
     }
 }

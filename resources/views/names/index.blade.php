@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{!! $name->id !!} </td>
                                 <td>
-                                    <a href="{!! action('NameController@show', $name->id) !!}">{!! $name->revision->name !!} </a>
+                                    <a href="{{ route('working_revision', [$name->id]) }}">{{ $name->latestRevision->name }} </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -25,10 +25,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/names', 'NameController@index');
 Route::get('/names/new', 'NameController@create');
 Route::post('/names/new', 'NameController@store');
-Route::get('/names/{name}', 'NameController@show');
+Route::get('/names/{name}', 'NameController@show')->name('working_revision');
 Route::post('/names/{name}', 'NameController@update');
 
-Route::get('/revision/{revision}', 'RevisionController@show')->name('revision');
+Route::get('/names/{name}/revisions/{revision}', 'NameController@show')->name('revision');
 
 /**
  * Test Email

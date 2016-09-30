@@ -31,4 +31,17 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Revision');
     }
+
+    static public function revisions_for_name($nameId)
+    {
+        return User::select('id', 'name', 'color')->with(
+            ['revisions' => 
+                function($q) use($nameId) {
+                    $q->select('id', 'name_id', 'user_id', 'revision_title', 'created_at')
+                        ->where('revision_title', '!=', 'New')
+                        ->whereNameId($nameId);
+                }
+            ]
+        )->get();
+    }
 }

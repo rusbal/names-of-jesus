@@ -10,12 +10,16 @@ class Name extends Model
 
     public function revisions()
     {
-        return $this->hasMany('App\Revision');
+        return $this->hasMany(Revision::class);
     }
 
-    public function revision()
+    public function latestRevision()
     {
-        return $this->hasOne('App\Revision')->latest();
+        # TODO: Use first line when not using faker data which will correctly fetch latest.
+
+        // return $this->hasOne(Revision::class)->latest();
+        
+        return $this->hasOne(Revision::class)->orderBy('id', 'desc');
     }
 
     public function revision_array()

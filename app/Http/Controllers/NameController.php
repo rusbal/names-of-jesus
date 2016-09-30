@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\NameFormRequest;
+
 use App\Name;
 use App\Revision;
+use App\User;
 
 class NameController extends Controller
 {
@@ -18,7 +20,7 @@ class NameController extends Controller
 
     public function index()
     {
-        $names = Name::with('revision')->get();
+        $names = Name::with('latestRevision')->get();
 
         return view('names.index', compact('names'));
     }
@@ -37,14 +39,11 @@ class NameController extends Controller
 
     public function show(Name $name)
     {
-        $revisions = $name->revisions()
-            ->select('revision_title', 'id', 'created_at')
-            ->orderBy('id', 'desc')
-            ->take(5)
-            ->get()
-            ->reverse();
+        $name->load('latestRevision');
 
-        return view('names.show', compact('name', 'revisions'));
+        $users_revision = User::revisions_for_name($name->id);
+
+        return view('names.show', compact('name', 'users_revision'));
     }
 
     public function update(Name $name, Request $request)
