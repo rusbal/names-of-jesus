@@ -24,11 +24,12 @@ Route::get('/home', 'HomeController@index');
  */
 Route::get('/names', 'NameController@index');
 Route::get('/names/new', 'NameController@create');
-Route::post('/names/new', 'NameController@store');
+Route::post('/names', 'NameController@store');
 Route::get('/names/{name}', 'NameController@show')->name('working_revision');
-Route::post('/names/{name}', 'NameController@update');
+Route::patch('/names/{name}', 'NameController@update');
 
 Route::get('/names/{name}/revisions/{revision}', 'NameController@show')->name('revision');
+// Route::post('/names/{name}/revisions/{revision}', 'NameController@show');
 
 /**
  * Test Email
