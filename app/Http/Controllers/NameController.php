@@ -41,9 +41,9 @@ class NameController extends Controller
     {
         $name->load('latestRevision');
 
-        $users_revision = User::revisions_for_name($name->id);
+        $authors = Revision::authorsOnNameId($name->id);
 
-        return view('names.show', compact('name', 'users_revision'));
+        return view('names.show', compact('name', 'authors'));
     }
 
     public function update(Name $name, Request $request)

@@ -31,7 +31,7 @@ $(function(){
             return;
         }
 
-        bootbox.prompt("Save with tag:", function(result){ 
+        bootbox.prompt("Save to new revision with tag:", function(result){ 
             if (result !== null) {
                 result = result != '' ? result : 'Empty';
                 $('#revision_title').val(result);

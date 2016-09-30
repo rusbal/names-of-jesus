@@ -17,4 +17,20 @@ class Revision extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Static
+     */
+    static public function authorsOnNameId($nameId, $limit = 6)
+    {
+        $authors = [];
+
+        $authorIds = Revision::select('user_id')->whereNameId($nameId)->pluck('user_id')->unique();
+
+        foreach ($authorIds as $authorId) {
+            $authors[] = Revision::with('user')->whereNameId($nameId)->whereUserId($authorId)->orderBy('id', 'desc')->limit($limit)->get();
+        }
+
+        return $authors;
+    }
 }

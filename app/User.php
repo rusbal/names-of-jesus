@@ -32,17 +32,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Revision');
     }
 
-    static public function revisions_for_name($nameId)
+    public function latestRevisions($limit = 6)
     {
-        return User::select('id', 'name', 'color')->with(
-            ['revisions' => 
-                function($q) use($nameId) {
-                    $q->select('id', 'name_id', 'user_id', 'revision_title', 'created_at')
-                        ->where('revision_title', '!=', 'New')
-                        ->whereNameId($nameId)
-                        ->orderBy('id', 'desc');
-                }
-            ]
-        )->get();
+        return $this->hasMany(Revision::class)->limit($limit)->orderBy('id', 'desc');
     }
 }
