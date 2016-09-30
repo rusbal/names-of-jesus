@@ -2,38 +2,9 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="well well-sm clearfix">
-                <div class="pull-right">
+    
+    @include('_user_revisions')
 
-                    @foreach ($users_revision as $user)
-
-                        @if ($user->revisions->count() > 0)
-                        <!-- Single button -->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="color:{{ $user->color }}"> 
-                                {{ $user->name }} <span class="caret"></span>
-                            </button>
-
-                            <ul class="dropdown-menu">
-
-                            @foreach ($user->revisions as $revision)
-                                <li> 
-                                    <a href="{{ route('revision', [$revision->name_id, $revision->id]) }}"><b>{{ $revision->revision_title }}</b> <small style="color:{{ $user->color }}">{{ $revision->created_at->diffForHumans() }}</small></a>
-                                </li>
-                            @endforeach
-
-                            </ul>
-                        </div>
-                        @endif
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <form class="form-horizontal" method="post" id="names-show">

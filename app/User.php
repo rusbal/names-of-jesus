@@ -39,7 +39,8 @@ class User extends Authenticatable
                 function($q) use($nameId) {
                     $q->select('id', 'name_id', 'user_id', 'revision_title', 'created_at')
                         ->where('revision_title', '!=', 'New')
-                        ->whereNameId($nameId);
+                        ->whereNameId($nameId)
+                        ->orderBy('id', 'desc');
                 }
             ]
         )->get();

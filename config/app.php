@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        //
+        Radic\BladeExtensions\BladeExtensionsServiceProvider::class,
 
         /*
          * Application Service Providers...
