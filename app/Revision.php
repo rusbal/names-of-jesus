@@ -28,7 +28,7 @@ class Revision extends Model
         $authorIds = Revision::select('user_id')->whereNameId($nameId)->pluck('user_id')->unique();
 
         foreach ($authorIds as $authorId) {
-            $authors[] = Revision::with('user')->whereNameId($nameId)->whereUserId($authorId)->orderBy('id', 'desc')->limit($limit)->get();
+            $authors[] = Revision::with('user')->whereNameId($nameId)->whereUserId($authorId)->orderBy('updated_at', 'desc')->limit($limit)->get();
         }
 
         return $authors;

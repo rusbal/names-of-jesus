@@ -1,21 +1,16 @@
-                @foreach ($errors->all() as $error)
-                    <p class="alert alert-danger">{{ $error }}</p>
-                @endforeach
-
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
+        <div class="panel panel-default">
+            <div class="panel-body">
 
                 <input type="hidden" name="id" value="{!! $name->id !!}">
                 <input type="hidden" id="revision_title" name="revision_title" value="">
                 <fieldset>
+
                     <legend><input class="form-paper-control" type="text" id="name" name="name" value="{!! $revision->name !!}" autocomplete="off"></legend>
+
                     <div class="form-group">
                         <label for="verse" class="col-lg-3 control-label">Verse</label>
                         <div class="col-lg-9">
-                            <textarea class="form-paper-control" rows="1" id="verse" name="verse">{!! $revision->verse !!}</textarea>
+                            <textarea class="form-paper-control" rows="1" id="verse" name="verse" autofocus>{!! $revision->verse !!}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -51,4 +46,5 @@
                         </div>
                     </div>
                 </fieldset>
-
+            </div>
+        </div>

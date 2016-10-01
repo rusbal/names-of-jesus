@@ -22,12 +22,20 @@ Route::get('/home', 'HomeController@index');
 /**
  * Names
  */
-Route::get('/names', 'NameController@index');
+Route::get('/names',     'NameController@index');
 Route::get('/names/new', 'NameController@create');
-Route::post('/names', 'NameController@store');
+Route::post('/names',    'NameController@store');
 
 Route::get('/names/{name}/revisions/{revision}', 'NameController@show')->name('revision');
 Route::patch('/names/{name}/revisions/{revision}', 'NameController@update');
+
+/**
+ * Admin
+ */
+Route::group(['namespace' => 'Admin'], function() {
+    Route::get('admin/{admin}', 'AdminController@index');
+    Route::patch('admin/{admin}', 'AdminController@update');
+});
 
 /**
  * Test Email

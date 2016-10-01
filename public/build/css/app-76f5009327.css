@@ -5774,7 +5774,6 @@ textarea.form-paper-control {
 
 .form-paper-control {
   background-color: #f5f8fa;
-  border: none;
   border-radius: 0;
   border-color: white;
   height: 36px;
@@ -5788,20 +5787,24 @@ textarea.form-paper-control {
 .form-paper-control {
   background-color: #fff; }
 
-input[type=text].form-paper-control:focus,
-textarea.form-paper-control:focus {
-  background-color: #EDFFED;
-  color: #000;
-  overflow-y: hidden;
+input[type=text].form-paper-control,
+textarea.form-paper-control {
   border: medium none;
-  border-color: #68aa68;
+  border-color: #e5e5e5;
   border-style: none none solid;
-  border-width: 0 0 2px;
-  padding-bottom: 4px;
-  -webkit-transition: border .5s ease-out;
-  transition: border .5s ease-out;
-  -webkit-transition: border-color .5s ease-out;
-  transition: border-color .5s ease-out; }
+  border-width: 0 0 1px;
+  padding-bottom: 4px; }
+  input[type=text].form-paper-control:focus,
+  textarea.form-paper-control:focus {
+    background-color: #EDFFED;
+    color: #000;
+    overflow-y: hidden;
+    border-color: #68aa68;
+    border-width: 0 0 2px;
+    -webkit-transition: border .5s ease-out;
+    transition: border .5s ease-out;
+    -webkit-transition: border-color .5s ease-out;
+    transition: border-color .5s ease-out; }
 
 textarea.form-paper-control {
   min-height: 60px; }

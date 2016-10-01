@@ -8,6 +8,8 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
+            @include('_alerts')
+
             {{ Form::open(array('method' => 'PATCH', 'id' => 'names-show', 'class' => 'form-horizontal')) }}
 
                 @include('_revision_form', ['showUpdateBtn' => true])

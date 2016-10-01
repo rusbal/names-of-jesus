@@ -15,11 +15,7 @@ class Name extends Model
 
     public function latestRevision()
     {
-        # TODO: Use first line when not using faker data which will correctly fetch latest.
-
-        // return $this->hasOne(Revision::class)->latest();
-
-        return $this->hasOne(Revision::class)->orderBy('id', 'desc');
+        return $this->hasOne(Revision::class)->orderBy('updated_at', 'desc');
     }
 
     public function createRevision($data)
@@ -34,10 +30,11 @@ class Name extends Model
      */
     static public function createAndInitRevision($name = null)
     {
-        if ($name) {
-            $name = parent::create([]);
-            $name->init_revision($name);
+        if (!$name) {
+            return;
         }
+
+        parent::create([])->init_revision($name);
     }
 
     /**
@@ -46,7 +43,7 @@ class Name extends Model
     private function init_revision($name)
     {
         $data = array(
-            'revision_title'   => 'New',
+            'revision_title'   => 'First Draft',
             'name'             => $name,
             'verse'            => '',
             'meaning_function' => '',

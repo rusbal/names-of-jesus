@@ -8,9 +8,9 @@
                 <div class="panel-heading">New Name</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST">
-                        {{ csrf_field() }}
 
+                    {{ Form::open(array('action' => 'NameController@store', 'method' => 'POST', 'role' => 'form', 'id' => 'main-form', 'class' => 'form-horizontal')) }}
+                    
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
@@ -36,7 +36,9 @@
                                 <button type="submit" class="btn btn-primary"> Submit </button>
                             </div>
                         </div>
-                    </form>
+
+                    {{ Form::close() }}
+            
                 </div>
             </div>
         </div>

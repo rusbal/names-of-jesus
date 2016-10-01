@@ -15,7 +15,7 @@ class NamesTableSeeder extends Seeder
             $faker = Faker\Factory::create('en_US');
             $name->revisions()->save(
                 new App\Revision([
-                    'revision_title'   => 'New',
+                    'revision_title'   => 'First Draft',
                     'name'             => $faker->firstNameMale . ' ' . $faker->lastName,
                     'verse'            => '',
                     'meaning_function' => '',
