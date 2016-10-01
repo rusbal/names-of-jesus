@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\NameFormRequest;
 
+use Gate;
 use App\Name;
 use App\Revision;
 use App\User;
@@ -51,6 +52,11 @@ class NameController extends Controller
         if ($isNewRevision) {
             return $this->saveNewRevision($name, $request);
         } else {
+
+            if (Gate::denies('update-revision', $revision)) {
+                abort(403, 'Sorry, you cannot update the revision of other authors.');
+            }
+
             return $this->updateRevision($revision, $request);
         }
     }
