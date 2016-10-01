@@ -11,6 +11,6 @@ class RevisionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Revision::class, 100)->create();
+        factory(App\Revision::class, 50)->create();
     }
 }

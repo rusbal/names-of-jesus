@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{!! $name->id !!} </td>
                                 <td>
-                                    <a href="{{ route('working_revision', [$name->id]) }}">{{ $name->latestRevision->name }} </a>
+                                    <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
                                 </td>
                             </tr>
                         @endforeach

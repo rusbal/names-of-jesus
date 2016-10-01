@@ -22,22 +22,29 @@ class Name extends Model
         return $this->hasOne(Revision::class)->orderBy('id', 'desc');
     }
 
-    public function revision_array()
-    {
-        return $this->hasMany(Revision::class)->pluck('revision_title', 'id');
-    }
+    // public function revision_array()
+    // {
+    //     return $this->hasMany(Revision::class)->pluck('revision_title', 'id');
+    // }
 
-    public function save_revision($data)
+    public function createRevision($data)
     {
         $data['user_id'] = \Auth::user()->id;
 
         return $this->revisions()->create($data);
     }
 
+    // public function updateRevision($data)
+    // {
+    //     $data['user_id'] = \Auth::user()->id;
+    //
+    //     return $this->revisions()->create($data);
+    // }
+
     /**
      * Static
      */
-    static public function create_and_init_revision($name = null)
+    static public function createAndInitRevision($name = null)
     {
         if ($name) {
             $name = parent::create([]);

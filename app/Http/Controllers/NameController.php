@@ -32,7 +32,7 @@ class NameController extends Controller
 
     public function store(NameFormRequest $request)
     {
-        $name = Name::create_and_init_revision($request->get('name'));
+        $name = Name::createAndInitRevision($request->get('name'));
 
         return redirect('/names/new')->with('status', 'Newly added: ' . $request->get('name')); 
     }
@@ -46,10 +46,47 @@ class NameController extends Controller
         return view('names.show', compact('name', 'authors'));
     }
 
-    public function update(Name $name, Request $request)
+    public function update(Name $name, Revision $revision, Request $request)
     {
-        $name->save_revision($request->all());
+        $isNewRevision = $request->revision_title != '';
 
-        return redirect()->back()->with('status', 'Saved on revision: ' . $request->get('revision_title')); 
+        if ($isNewRevision) {
+            return $this->saveNewRevision($name, $request);
+        } else {
+            return $this->updateRevision($revision, $request);
+        }
+    }
+
+    /**
+     * Private
+     */
+    private function saveNewRevision($name, $request)
+    {
+        $message = 'Saved to revision: ' . $request->get('revision_title');
+        $revision = $name->createRevision($request->all());
+
+        return redirect()->action(
+            'NameController@show', [$name->id, $revision->id]
+        )->with('status', $message);
+    }
+
+    private function updateRevision($revision, $request)
+    {
+        $message = 'Updated revision: ' . $revision->revision_title;
+
+        /**
+         * Keep revision_title by not including it on mass assigned replacement.
+         */
+        $revision->update(
+            $this->removeRevisionTitle($request->all())
+        );
+
+        return redirect()->back()->with('status', $message); 
+    }
+
+    private function removeRevisionTitle($arr)
+    {
+        unset($arr['revision_title']);
+        return $arr;
     }
 }
