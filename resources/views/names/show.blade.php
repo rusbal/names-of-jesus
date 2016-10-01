@@ -28,7 +28,7 @@ $(function(){
 
     var serialized = $('#names-show').serialize();
 
-    $('#submit').on('click', function(){
+    $('#submit-new-revision').on('click', function(){
         if (serialized == $('#names-show').serialize()) {
             return;
         }
@@ -41,14 +41,27 @@ $(function(){
                     return;
                 }
                 if (result === '') {
-                    $('#submit').click();
+                    $('#submit-new-revision').click();
                     return
                 }
                 
                 $('#revision_title').val(result);
-                $('#submit-hidden').click();
+                $('button#submit-save').click();
             }
         });
+    });
+
+    $('form').submit(function(e){
+        if (serialized == $('#names-show').serialize()) {
+            e.preventDefault();
+            return;
+        }
+
+        if ($('button#submit-save').hasClass('hidden')) {
+            e.preventDefault();
+            $('#submit-new-revision').click();
+            return;
+        }
     });
 
     $('form :input').on('input', function(){

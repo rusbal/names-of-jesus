@@ -46,8 +46,8 @@
                     <div class="form-group">
                         <div class="col-lg-9 col-lg-offset-3 buttons-group">
                             <input class="btn btn-default disabled" type="reset">
-                            <button class="btn btn-primary disabled {{ $isOwner ? '' : 'hidden' }}" id="submit-hidden">Save edits</button>
-                            <input class="btn btn-primary disabled" id="submit" type="button" value="Save as new revision">
+                            <button class="btn btn-primary disabled {{ $isOwner ? '' : 'hidden' }}" id="submit-save">Save</button>
+                            <input class="btn btn-primary disabled" id="submit-new-revision" type="button" value="Save as new revision">
                         </div>
                     </div>
                 </fieldset>

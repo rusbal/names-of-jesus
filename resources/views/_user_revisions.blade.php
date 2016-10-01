@@ -18,7 +18,7 @@
                                 <li> 
                                     <a href="{{ route('revision', [$revision->name_id, $revision->id]) }}">
                                         @if ($loop->first) <b> @endif {{ $revision->revision_title }} @if ($loop->first) </b> @endif
-                                        <small style="color:{{ $revision->user->color }}">{{ $revision->created_at->diffForHumans() }}</small></a>
+                                        <small style="color:{{ $revision->user->color }}">{{ $revision->updated_at->diffForHumans() }}</small></a>
                                     @if ($loop->first) <li role="separator" class="divider"></li> @endif
                                 </li>
                             @endforeach
