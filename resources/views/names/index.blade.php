@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach($names as $name)
                             <tr>
-                                <td>{!! $name->id !!} </td>
+                                <td>{{ $name->id }} </td>
                                 <td>
                                     <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
                                 </td>

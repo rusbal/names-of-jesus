@@ -5830,4 +5830,8 @@ label {
   font-weight: bold;
   text-transform: uppercase; }
 
+.out-of-view {
+  position: absolute;
+  left: -1000px; }
+
 /*# sourceMappingURL=app.css.map */

@@ -3,16 +3,16 @@
 @section('content')
 <div class="container">
     
-    @include('_user_revisions')
+    @include('revision._user')
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
             @include('_alerts')
 
-            {{ Form::open(array('method' => 'PATCH', 'id' => 'names-show', 'class' => 'form-horizontal')) }}
+            {{ Form::open(array('method' => 'PATCH', 'id' => 'main-form', 'class' => 'form-horizontal')) }}
 
-                @include('_revision_form', ['showUpdateBtn' => true])
+                @include('revision._form', ['showUpdateBtn' => true])
 
             {{ Form::close() }}
 
@@ -25,13 +25,15 @@
 @section('footer_script')
 <script>
 $(function(){
-    autosize($('textarea'));
-    $('#names-show').arrowNextField();
 
-    var serialized = $('#names-show').serialize();
+    autosize($('textarea'));
+
+    $('#main-form').arrowNextField();
+
+    var serialized = $('#main-form').serialize();
 
     $('#submit-new-revision').on('click', function(){
-        if (serialized == $('#names-show').serialize()) {
+        if (serialized == $('#main-form').serialize()) {
             return;
         }
 
@@ -48,21 +50,23 @@ $(function(){
                 }
                 
                 $('#revision_title').val(result);
-                $('button#submit-save').click();
+                $('#main-form').submit();
             }
         });
     });
 
-    $('form').submit(function(e){
-        if (serialized == $('#names-show').serialize()) {
+    $('#main-form').submit(function(e){
+        if (serialized == $('#main-form').serialize()) {
             e.preventDefault();
             return;
         }
 
-        if ($('button#submit-save').hasClass('hidden')) {
-            e.preventDefault();
-            $('#submit-new-revision').click();
-            return;
+        if ($('#revision_title').val() == '') {
+            if ($('button#submit-save').hasClass('out-of-view')) {
+                e.preventDefault();
+                $('#submit-new-revision').click();
+                return;
+            }
         }
     });
 

@@ -71,3 +71,7 @@ label {
     text-transform: uppercase;
 }
 
+.out-of-view {
+    position:absolute;    
+    left:-1000px;
+}

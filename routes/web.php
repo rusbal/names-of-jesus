@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'NameController@index');
 
 Auth::routes();
 
@@ -26,8 +24,11 @@ Route::get('/names',     'NameController@index');
 Route::get('/names/new', 'NameController@create');
 Route::post('/names',    'NameController@store');
 
-Route::get('/names/{name}/revisions/{revision}', 'NameController@show')->name('revision');
-Route::patch('/names/{name}/revisions/{revision}', 'NameController@update');
+/**
+ * Revision
+ */
+Route::get('/names/{name}/revisions/{revision}', 'RevisionController@edit')->name('revision');
+Route::patch('/names/{name}/revisions/{revision}', 'RevisionController@update');
 
 /**
  * Admin
@@ -42,9 +43,9 @@ Route::group(['namespace' => 'Admin'], function() {
  */
 Route::get('/raymond/mail', 'RaymondMailController@mail');
 
-Route::get('/raymond/notify', function() {
-    Event::listen(Illuminate\Notifications\Events\NotificationSent::class, function($event) { info($event->notifiable->email); });
-    $user = \App\User::find(1);
-    $user->notify(new \App\Notifications\RayNotification());
-});
+// Route::get('/raymond/notify', function() {
+//     Event::listen(Illuminate\Notifications\Events\NotificationSent::class, function($event) { info($event->notifiable->email); });
+//     $user = \App\User::find(1);
+//     $user->notify(new \App\Notifications\RayNotification());
+// });
 
