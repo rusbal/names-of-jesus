@@ -67,7 +67,7 @@ $(function(){
         }
 
         if ($('#revision_title').val() == '') {
-            if ($('button#submit-save').hasClass('out-of-view')) {
+            if ($('input[type=submit]').hasClass('out-of-view')) {
                 e.preventDefault();
                 submitNewRevision();
                 return;

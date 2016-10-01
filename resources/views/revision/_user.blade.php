@@ -5,7 +5,7 @@
             <div class="well well-sm clearfix">
                 <div class="pull-left">
                     Revision: <strong>{{ $revision->revision_title }}</strong><br>
-                    <small>{!! $helper->lessons($revision) !!}</small>
+                    <small>{!! $helper->latestActivity($revision) !!}</small>
                 </div>
 
                 <div class="pull-right">

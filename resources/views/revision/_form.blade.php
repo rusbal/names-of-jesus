@@ -41,9 +41,15 @@
 
                     <div class="form-group">
                         <div class="col-lg-12">
+
+                            @if ($isOwner)
+                            <div class="pull-left">
+                            </div>
+                            @endif
+
                             <div class="pull-right buttons-group">
                                 <input class="btn btn-default disabled" type="reset">
-                                <button class="btn btn-primary disabled {{ $isOwner ? '' : 'out-of-view' }}" id="submit-save">Save</button>
+                                <input class="btn btn-primary disabled {{ $isOwner ? '' : 'out-of-view' }}" type="submit" value="Save">
                                 <input class="btn btn-primary disabled submit-new-revision" type="button" value="Save as new revision">
                             </div>
                         </div>
