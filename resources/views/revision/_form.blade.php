@@ -1,9 +1,10 @@
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <input type="hidden" name="id" value="{!! $name->id !!}">
-                <input type="hidden" id="revision_title" name="revision_title" value="">
                 <fieldset>
+
+                    <input type="hidden" name="id" value="{!! $name->id !!}">
+                    <input type="hidden" id="revision_title" name="revision_title" value="">
 
                     <legend><input class="form-paper-control" type="text" id="name" name="name" value="{!! $revision->name !!}" autocomplete="off"></legend>
 
@@ -39,10 +40,12 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3 buttons-group">
-                            <input class="btn btn-default disabled" type="reset">
-                            <button class="btn btn-primary disabled {{ $isOwner ? '' : 'out-of-view' }}" id="submit-save">Save</button>
-                            <input class="btn btn-primary disabled" id="submit-new-revision" type="button" value="Save as new revision">
+                        <div class="col-lg-12">
+                            <div class="pull-right buttons-group">
+                                <input class="btn btn-default disabled" type="reset">
+                                <button class="btn btn-primary disabled {{ $isOwner ? '' : 'out-of-view' }}" id="submit-save">Save</button>
+                                <input class="btn btn-primary disabled submit-new-revision" type="button" value="Save as new revision">
+                            </div>
                         </div>
                     </div>
                 </fieldset>

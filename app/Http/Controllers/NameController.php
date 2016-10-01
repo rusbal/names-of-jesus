@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Http\Requests\NameFormRequest;
 
 use Auth;
-use Gate;
 use App\Name;
 use App\Revision;
 use App\User;

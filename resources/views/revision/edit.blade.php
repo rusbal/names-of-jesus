@@ -32,20 +32,17 @@ $(function(){
 
     var serialized = $('#main-form').serialize();
 
-    $('#submit-new-revision').on('click', function(){
-        if (serialized == $('#main-form').serialize()) {
-            return;
-        }
+    var submitNewRevision = function() {
+        if (serialized == $('#main-form').serialize()) { return; }
 
         bootbox.prompt({
             title: "Save to new revision:", 
             animate: false,
             callback: function(result){ 
-                if (result === null) {
-                    return;
-                }
+                if (result === null) { return; }
+
                 if (result === '') {
-                    $('#submit-new-revision').click();
+                    submitNewRevision();
                     return
                 }
                 
@@ -53,6 +50,14 @@ $(function(){
                 $('#main-form').submit();
             }
         });
+    };
+
+    $('.submit-new-revision').on('click', function(){
+        submitNewRevision();
+    });
+
+    $('#menu-submit-save').on('click', function(){
+        $('#main-form').submit();
     });
 
     $('#main-form').submit(function(e){
@@ -64,7 +69,7 @@ $(function(){
         if ($('#revision_title').val() == '') {
             if ($('button#submit-save').hasClass('out-of-view')) {
                 e.preventDefault();
-                $('#submit-new-revision').click();
+                submitNewRevision();
                 return;
             }
         }

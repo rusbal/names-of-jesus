@@ -1,8 +1,11 @@
+@inject('helper', 'App\ViewHelper')
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="well well-sm clearfix">
-                <div class="panel-title pull-left">
-                    Revision: <strong>{{ $revision->revision_title }}</strong>
+                <div class="pull-left">
+                    Revision: <strong>{{ $revision->revision_title }}</strong><br>
+                    <small>{!! $helper->lessons($revision) !!}</small>
                 </div>
 
                 <div class="pull-right">
@@ -32,6 +35,22 @@
                         
                     @endforeach
 
+                    <div class="btn-group buttons-group">
+
+                    @if ($isOwner)
+                        <button type="button" class="btn btn-primary disabled" id="menu-submit-save">Save</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="return false" class="submit-new-revision">Save as new revision</a></li>
+                        </ul>
+                    @else
+                        <button type="button" class="btn btn-primary disabled submit-new-revision">Save as new revision</button>
+                    @endif
+
+                    </div>
                 </div>
             </div>
         </div>
