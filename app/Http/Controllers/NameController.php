@@ -37,10 +37,8 @@ class NameController extends Controller
         return redirect('/names/new')->with('status', 'Newly added: ' . $request->get('name')); 
     }
 
-    public function show(Name $name)
+    public function show(Name $name, Revision $revision)
     {
-        $name->load('latestRevision');
-
         $authors = Revision::authorsOnNameId($name->id);
 
         return view('names.show', compact('name', 'authors'));
