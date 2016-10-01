@@ -41,6 +41,7 @@ textarea.form-paper-control {
     }
 }
 textarea.form-paper-control {
+    min-height: 60px;
     &:focus {
         border-width: 0 0 2px;
         padding-bottom: 6px;

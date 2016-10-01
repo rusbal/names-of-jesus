@@ -13,14 +13,14 @@ class Name extends Model
         return $this->hasMany(Revision::class);
     }
 
-    public function latestRevision()
-    {
-        # TODO: Use first line when not using faker data which will correctly fetch latest.
-
-        // return $this->hasOne(Revision::class)->latest();
-        
-        return $this->hasOne(Revision::class)->orderBy('id', 'desc');
-    }
+    // public function latestRevision()
+    // {
+    //     # TODO: Use first line when not using faker data which will correctly fetch latest.
+    //
+    //     // return $this->hasOne(Revision::class)->latest();
+    //     
+    //     return $this->hasOne(Revision::class)->orderBy('id', 'desc');
+    // }
 
     public function createRevision($data)
     {

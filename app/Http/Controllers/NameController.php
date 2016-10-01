@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\NameFormRequest;
 
+use Auth;
 use Gate;
 use App\Name;
 use App\Revision;
@@ -41,8 +42,9 @@ class NameController extends Controller
     public function show(Name $name, Revision $revision)
     {
         $authors = Revision::authorsOnNameId($name->id);
+        $isOwner = Auth::user()->id == $revision->user_id;
 
-        return view('names.show', compact('name', 'authors'));
+        return view('names.show', compact('name', 'revision', 'authors', 'isOwner'));
     }
 
     public function update(Name $name, Revision $revision, Request $request)
