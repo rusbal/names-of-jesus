@@ -10,7 +10,7 @@
 
             {{ Form::open(array('action' => ['NameController@update', $name->id], 'method' => 'PATCH', 'id' => 'names-show', 'class' => 'form-horizontal')) }}
 
-                @include('_revision_form')
+                @include('_revision_form', ['showUpdateBtn' => true])
 
             {{ Form::close() }}
 
@@ -23,6 +23,8 @@
 @section('footer_script')
 <script>
 $(function(){
+    autosize($('textarea'));
+    $('#names-show').arrowNextField();
 
     var serialized = $('#names-show').serialize();
 
@@ -31,25 +33,33 @@ $(function(){
             return;
         }
 
-        bootbox.prompt("Save to new revision with tag:", function(result){ 
-            if (result !== null) {
-                result = result != '' ? result : 'Empty';
+        bootbox.prompt({
+            title: "Save to new revision:", 
+            animate: false,
+            callback: function(result){ 
+                if (result === null) {
+                    return;
+                }
+                if (result === '') {
+                    $('#submit').click();
+                    return
+                }
+                
                 $('#revision_title').val(result);
                 $('#submit-hidden').click();
             }
         });
     });
 
-    $('#names-show').on('submit', function(e){
-        if ($('#revision_title').val() == '') {
-            e.preventDefault();
-            $('#submit').click();
-        }
+    $('form :input').on('input', function(){
+        // Enable buttons
+        $('.buttons-group .disabled').removeClass('disabled').addClass('enabled');
     });
 
-    autosize($('textarea'));
-
-    $('#names-show').arrowNextField();
+    $('form input[type=reset]').on('click', function(){
+        // Disable buttons
+        $('.buttons-group .enabled').removeClass('enabled').addClass('disabled');
+    });
 });
 
 </script>

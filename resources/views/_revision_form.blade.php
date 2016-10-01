@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3">
-                            <input class="btn btn-default" type="reset">
-                            <input id="submit" type="button" class="btn btn-primary" value="Submit">
-                            <button id="submit-hidden"></button>
+                        <div class="col-lg-9 col-lg-offset-3 buttons-group">
+                            <input class="btn btn-default disabled" type="reset">
+                            <button class="btn btn-primary disabled" id="submit-hidden">Save edits</button>
+                            <input class="btn btn-primary disabled" id="submit" type="button" value="Save as new revision">
                         </div>
                     </div>
                 </fieldset>
