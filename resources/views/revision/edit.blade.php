@@ -31,6 +31,7 @@ $(function(){
     $('#main-form').arrowNextField();
 
     var serialized = $('#main-form').serialize();
+    var revisionId = {{ $revision->id }};
 
     var submitNewRevision = function() {
         if (serialized == $('#main-form').serialize()) { return; }
@@ -84,6 +85,14 @@ $(function(){
         // Disable buttons
         $('.buttons-group .enabled').removeClass('enabled').addClass('disabled');
     });
+
+    $('.btn-danger-hover').hover(
+        function(){
+            $(this).addClass('btn-danger');
+        }, function(){
+            $(this).removeClass('btn-danger');
+        });
+
 });
 
 </script>

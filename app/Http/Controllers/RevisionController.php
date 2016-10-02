@@ -19,6 +19,11 @@ class RevisionController extends Controller
         $this->middleware('auth', array('except' => 'index'));
     }
 
+    public function index()
+    {
+        return view('temp');
+    }
+
     public function edit(Name $name, Revision $revision)
     {
         $authors = Revision::authorsOnNameId($name->id);
@@ -41,6 +46,15 @@ class RevisionController extends Controller
 
             return $this->updateRevision($revision, $request);
         }
+    }
+
+    public function destroy($nameId, Revision $revision)
+    {
+        $revision->delete();
+
+        return redirect()->action(
+            'RevisionController@index', [$nameId]
+        )->with('status', "Revision '{$revision->revision_title}' was successfully deleted.");
     }
 
     /**

@@ -4,7 +4,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="well well-sm clearfix">
                 <div class="pull-left">
-                    Revision: <strong>{{ $revision->revision_title }}</strong><br>
+                    Revision: <strong id="revision-title">{{ $revision->revision_title }}</strong><br>
                     <small>{!! $helper->latestActivity($revision) !!}</small>
                 </div>
 

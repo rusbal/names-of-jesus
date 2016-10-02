@@ -27,8 +27,10 @@ Route::post('/names',    'NameController@store');
 /**
  * Revision
  */
+Route::get('/names/{name}/revisions', 'RevisionController@index');
 Route::get('/names/{name}/revisions/{revision}', 'RevisionController@edit')->name('revision');
 Route::patch('/names/{name}/revisions/{revision}', 'RevisionController@update');
+Route::delete('/names/{name}/revisions/{revision}', 'RevisionController@destroy');
 
 /**
  * Admin

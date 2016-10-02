@@ -44,6 +44,7 @@
 
                             @if ($isOwner)
                             <div class="pull-left">
+                                <input class="btn btn-danger-hover" data-domain-name="revision" data-delete-confirm="Are you sure?" type="button" value="Delete">
                             </div>
                             @endif
 

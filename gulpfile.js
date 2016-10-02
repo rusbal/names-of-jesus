@@ -17,7 +17,8 @@ elixir(mix => {
     mix.sass('app.scss')
        .webpack([
            'app.js', 
-           'arrownextfield.jquery.js'
+           'arrownextfield.jquery.js',
+           'helpers/delete-form.js'
        ], 'public/js/app.js');
 
     mix.version(['public/css/app.css',
