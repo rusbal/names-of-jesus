@@ -11,11 +11,7 @@
                     <div class="clearfix"></div>
                 </div>
 
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
+            @include('_alerts')
 
             @if ($names->isEmpty())
                 <div class="panel-body">

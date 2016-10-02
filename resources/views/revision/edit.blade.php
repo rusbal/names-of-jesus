@@ -10,7 +10,7 @@
 
             @include('_alerts')
 
-            {{ Form::open(array('method' => 'PATCH', 'id' => 'main-form', 'class' => 'form-horizontal')) }}
+            {{ Form::open(['action' => ['RevisionController@update', $name->id, $revision->id], 'method' => 'PATCH', 'id' => 'main-form', 'class' => 'form-horizontal']) }}
 
                 @include('revision._form', ['showUpdateBtn' => true])
 

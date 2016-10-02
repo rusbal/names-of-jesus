@@ -31,14 +31,6 @@ class RevisionController extends Controller
         return $this->viewEdit($name, $revision);
     }
 
-    private function viewEdit($name, $revision)
-    {
-        $authors = Revision::authorsOnNameId($name->id);
-        $isOwner = Auth::user()->id == $revision->user_id;
-
-        return view('revision.edit', compact('name', 'revision', 'authors', 'isOwner'));
-    }
-
     public function update(Name $name, Revision $revision, Request $request)
     {
         $isNewRevision = $request->revision_title != '';
@@ -59,7 +51,7 @@ class RevisionController extends Controller
         $revision->delete();
 
         if ($this->deleteNameIfOrphaned($name)) {
-            return redirect()->route('names')->with('status', "Name '{$revision->name}:{$revision->revision_title}' was successfully deleted.");
+            return redirect()->route('names')->with('status', "<b>Name '{$revision->name}:{$revision->revision_title}'</b> was successfully deleted.");
         }
 
         return redirect()->action(
@@ -111,5 +103,13 @@ class RevisionController extends Controller
     {
         unset($arr['revision_title']);
         return $arr;
+    }
+
+    private function viewEdit($name, $revision)
+    {
+        $authors = Revision::authorsOnNameId($name->id);
+        $isOwner = Auth::user()->id == $revision->user_id;
+
+        return view('revision.edit', compact('name', 'revision', 'authors', 'isOwner'));
     }
 }
