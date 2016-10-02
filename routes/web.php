@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index');
 /**
  * Names
  */
-Route::get('/names',     'NameController@index');
+Route::get('/names',     'NameController@index')->name('names');
 Route::get('/names/new', 'NameController@create');
 Route::post('/names',    'NameController@store');
 

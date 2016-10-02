@@ -19,12 +19,19 @@ class RevisionController extends Controller
         $this->middleware('auth', array('except' => 'index'));
     }
 
-    public function index()
+    public function index(Name $name)
     {
-        return view('temp');
+        $revision = $name->latestRevision;
+
+        return $this->viewEdit($name, $revision);
     }
 
     public function edit(Name $name, Revision $revision)
+    {
+        return $this->viewEdit($name, $revision);
+    }
+
+    private function viewEdit($name, $revision)
     {
         $authors = Revision::authorsOnNameId($name->id);
         $isOwner = Auth::user()->id == $revision->user_id;
@@ -39,16 +46,11 @@ class RevisionController extends Controller
         if ($isNewRevision) {
             return $this->saveNewRevision($name, $request);
         } else {
-
-            if (Gate::denies('update-revision', $revision)) {
-                abort(403, 'Sorry, you cannot update the revision of other authors.');
-            }
-
             return $this->updateRevision($revision, $request);
         }
     }
 
-    public function destroy($nameId, Revision $revision)
+    public function destroy(Name $name, Revision $revision)
     {
         if (Gate::denies('update-revision', $revision)) {
             abort(403, 'Sorry, you cannot delete the revision of other authors.');
@@ -56,14 +58,27 @@ class RevisionController extends Controller
 
         $revision->delete();
 
+        if ($this->deleteNameIfOrphaned($name)) {
+            return redirect()->route('names')->with('status', "Name '{$revision->name}:{$revision->revision_title}' was successfully deleted.");
+        }
+
         return redirect()->action(
-            'RevisionController@index', [$nameId]
+            'RevisionController@index', [$name->id]
         )->with('status', "Revision '{$revision->revision_title}' was successfully deleted.");
     }
 
     /**
      * Private
      */
+    private function deleteNameIfOrphaned($name)
+    {
+        if (is_null($name->latestRevision)) {
+            $name->delete();
+            return true;
+        }
+        return false;
+    }
+
     private function saveNewRevision($name, $request)
     {
         $message = 'Saved to revision: ' . $request->get('revision_title');
@@ -76,6 +91,10 @@ class RevisionController extends Controller
 
     private function updateRevision($revision, $request)
     {
+        if (Gate::denies('update-revision', $revision)) {
+            abort(403, 'Sorry, you cannot update the revision of other authors.');
+        }
+
         $message = 'Updated revision: ' . $revision->revision_title;
 
         /**
