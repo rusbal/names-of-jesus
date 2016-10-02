@@ -50,6 +50,10 @@ class RevisionController extends Controller
 
     public function destroy($nameId, Revision $revision)
     {
+        if (Gate::denies('update-revision', $revision)) {
+            abort(403, 'Sorry, you cannot delete the revision of other authors.');
+        }
+
         $revision->delete();
 
         return redirect()->action(
