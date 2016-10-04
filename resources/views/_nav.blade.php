@@ -36,8 +36,10 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li> <a href="{{ url('/admin', Auth::user()->id) }}"> Profile </a> </li>
+                                <li> <a href="{{ url('/password/change') }}"> Change Password </a> </li>
+                                <li role="separator" class="divider"></li>
                                 <li>
-                                    <a href="{{ url('/admin', Auth::user()->id) }}"> Profile </a> 
                                     <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout </a> 
                                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form>
                                 </li>

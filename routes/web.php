@@ -35,8 +35,16 @@ Route::delete('/names/{name}/revisions/{revision}', 'RevisionController@destroy'
 /**
  * Admin
  */
+Route::group(['namespace' => 'Auth'], function() {
+    Route::get('password/change', 'ChangePasswordController@edit');
+    Route::post('password/change', 'ChangePasswordController@store');
+});
+
+/**
+ * Admin
+ */
 Route::group(['namespace' => 'Admin'], function() {
-    Route::get('admin/{admin}', 'AdminController@index');
+    Route::get('admin/{admin}', 'AdminController@index')->name('admin-profile');
     Route::patch('admin/{admin}', 'AdminController@update');
 });
 
