@@ -3,32 +3,47 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">User Profile</div>
 
-            @include('_alerts')
+                <div class="panel-body">
 
-            {{ Form::open(array('method' => 'PATCH', 'id' => 'main-form', 'class' => 'form-horizontal')) }}
+                    @include('_alerts')
 
-                <fieldset>
-                    <legend>User Profile</legend>
-                    <div class="form-group">
-                        <label for="verse" class="col-lg-3 control-label">Verse</label>
-                        <div class="col-lg-9">
-                            <input class="form-paper-control" type="text" id="name" name="name" value="" autocomplete="off">
+                    {{ Form::open(array('method' => 'PATCH', 'id' => 'main-form', 'class' => 'form-horizontal')) }}
+            
+                        <div class="form-group">
+                            <label for="color" class="col-md-4 control-label">Color</label>
+
+                            <div class="col-md-6">
+                                <input id="color" type="color" class="abc form-control" name="color" value="{{ Auth::user()->color }}" required>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3 buttons-group">
-                            <input class="btn btn-default disabled" type="reset">
-                            <button class="btn btn-primary disabled" id="submit-save">Save</button>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
+                    
+                    {{ Form::close() }}
 
-            {{ Form::close() }}
-
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @endsection
+
+@section('footer_script')
+<script>
+$(function(){
+    $('.abc').labelColorPicker();
+});
+
+</script>
+@endsection
+

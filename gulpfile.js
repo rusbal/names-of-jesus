@@ -19,6 +19,7 @@ elixir(mix => {
        .webpack([
            'app.js', 
            'arrownextfield.jquery.js',
+           'labelcolorpicker.jquery.js',
            'helpers/delete-form.js',
            'helpers/btn-danger-hover.js'
        ], 'public/js/app.js');

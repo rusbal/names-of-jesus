@@ -15,6 +15,10 @@ class RayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Validator::extend('color', function ($attribute, $value, $parameters, $validator) {
+            return (bool) preg_match('/#([a-f0-9]{3}){1,2}\b/i', $value);
+        });
+
         Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
             return Hash::check($value, current($parameters));
         });
