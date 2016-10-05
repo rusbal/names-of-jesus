@@ -15,6 +15,7 @@ class CreateNamesTable extends Migration
     {
         Schema::create('names', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('number')->default(0);
             $table->timestamps();
         });
     }

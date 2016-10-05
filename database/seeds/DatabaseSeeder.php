@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Name;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +19,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);
         $this->call(NamesTableSeeder::class);
+
+        /**
+         * Set name.number to be equal to name.id
+         */
+        foreach (Name::all() as $name) {
+            $name->number = $name->id;
+            $name->save();
+        }
+
         // $this->call(RevisionsTableSeeder::class);
     }
 }
