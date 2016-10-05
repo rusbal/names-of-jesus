@@ -66,9 +66,9 @@ class Name extends Model
         $order = Name::whereIn('order', $nameIds)->min('order');
 
         foreach ($nameIds as $id) {
-            $notFound = Name::whereId($id)->update(['order' => $order]) == 0;
+            $success = Name::whereId($id)->update(['order' => $order]);
 
-            if ($notFound) {
+            if (!$success) {
                 return false;
             }
 
