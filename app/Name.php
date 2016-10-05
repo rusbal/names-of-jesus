@@ -45,33 +45,39 @@ class Name extends Model
 
     static public function updateSort($nameIds)
     {
-        $order = Name::whereIn('order', $nameIds)->min('order');
-        $order_arr = [];
-
         DB::beginTransaction();
+        $result = Name::saveOrderArray($nameIds);
 
-        foreach ($nameIds as $id) {
-            $name = Name::whereId($id)->first();
-
-            if (!$name) {
-                DB::rollBack();
-                return false;
-            }
-
-            $order_arr[] = $order;
-            $name->order = $order;
-            $name->save();
-
-            $order += 1;
+        if ($result === false) {
+            DB::rollBack();
+            return false;
         }
 
         DB::commit();
-        return $order_arr;
+        return $result;
     }
 
     /**
      * Private
      */
+    static private function saveOrderArray($nameIds)
+    {
+        $order_arr = [];
+        $order = Name::whereIn('order', $nameIds)->min('order');
+
+        foreach ($nameIds as $id) {
+            $notFound = Name::whereId($id)->update(['order' => $order]) == 0;
+
+            if ($notFound) {
+                return false;
+            }
+
+            $order_arr[] = $order;
+            $order += 1;
+        }
+        return $order_arr;
+    }
+
     private function init_revision($name)
     {
         $data = array(
