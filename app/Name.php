@@ -46,15 +46,15 @@ class Name extends Model
     static public function updateSort($nameIds)
     {
         DB::beginTransaction();
-        $result = Name::saveOrderArray($nameIds);
+        $order_arr = Name::saveOrderArray($nameIds);
 
-        if ($result === false) {
+        if ($order_arr === false) {
             DB::rollBack();
             return false;
         }
 
         DB::commit();
-        return $result;
+        return $order_arr;
     }
 
     /**
