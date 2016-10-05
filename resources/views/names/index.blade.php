@@ -18,23 +18,46 @@
                     There is no name.
                 </div>
             @else
-                <table class="table">
-                    <tbody>
-                        @foreach($names as $name)
-                            <tr>
-                                <td>{{ $name->id }} </td>
-                                <td>
+                <div class="panel-body">
+                    <ul class="list-group" id="names-list">
+                    @foreach($names as $name)
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-1">
+                                    {{ $name->id }}
+                                </div>
+                                <div class="col-xs-9">
+                                    <span class="drag-handle">☰</span>
                                     <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="pull-right">
+                                        <span class="badge">14</span>
+                                        <span class="badge">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                    </table>
+                </div>
             @endif
 
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('footer_script')
+<script>
+$(function(){
+    var el = document.getElementById('names-list');
+    var sortable = Sortable.create(el, {
+        chosenClass: 'sortable-dragged',
+        handle: '.drag-handle',
+    });
+});
+</script>
 @endsection
 

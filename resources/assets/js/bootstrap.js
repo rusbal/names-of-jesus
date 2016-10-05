@@ -1,6 +1,7 @@
 
 window.autosize = require('autosize');
 window.bootbox = require('bootbox');
+window.Sortable = require('sortablejs');
 
 window._ = require('lodash');
 

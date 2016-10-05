@@ -5834,4 +5834,15 @@ label {
   position: absolute;
   left: -1000px; }
 
+/* Sorting */
+.sortable-dragged {
+  background-color: #ddd; }
+
+.drag-handle {
+  color: #5f9edf;
+  cursor: move;
+  display: inline-block;
+  font: bold 20px sans-serif;
+  margin-right: 10px; }
+
 /*# sourceMappingURL=app.css.map */
