@@ -21,7 +21,7 @@ class NameController extends Controller
 
     public function index()
     {
-        $names = Name::with('latestRevision')->get();
+        $names = Name::with('latestRevision')->ordered();
 
         return view('names.index', compact('names'));
     }

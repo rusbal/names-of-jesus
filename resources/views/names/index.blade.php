@@ -19,12 +19,19 @@
                 </div>
             @else
                 <div class="panel-body">
+
+                    <div class="form-group" id="sort-messages">
+                        <span class="help-block">
+                            <strong id="form-sort-messages"></strong>
+                        </span>
+                    </div>
+
                     <ul class="list-group" id="names-list">
                     @foreach($names as $name)
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-xs-1">
-                                    {{ $name->id }}
+                                <div class="col-xs-1 name-order" data-id="{{ $name->id }}">
+                                    {{ $name->order }}
                                 </div>
                                 <div class="col-xs-9">
                                     <span class="drag-handle">☰</span>
@@ -52,10 +59,66 @@
 @section('footer_script')
 <script>
 $(function(){
+    var collectNameOrder = function() {
+        var order = Array();
+
+        $('.name-order').each(function(){
+            order.push($(this).data('id'));
+        });
+        return order;
+    };
+
+    var reNumber = function(order_arr) {
+        var idx = 0;
+
+        $('.name-order').each(function(){
+            $(this).html(order_arr[idx]);
+            idx += 1;
+        });
+    };
+
+    var ajaxSetup = function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#sort-messages")
+            .removeClass("has-success")
+            .removeClass("has-error");
+        $('#form-sort-messages').html('');
+    };
+
     var el = document.getElementById('names-list');
     var sortable = Sortable.create(el, {
         chosenClass: 'sortable-dragged',
         handle: '.drag-handle',
+
+        onUpdate: function (evt) {
+            ajaxSetup();
+            var data = {
+                order: collectNameOrder()
+            };
+            $.ajax({
+                type: "POST",
+                url: 'ajax/names/sort',
+                data: data,
+                success: function(response) {
+                    $("#sort-messages").addClass("has-success");
+                    $('#form-sort-messages').append('Name order was successfully updated.');
+                    reNumber(response.order);
+                },
+                error: function(data) {
+                    var obj = jQuery.parseJSON(data.responseText);
+                    if (obj.order) {
+                        $("#sort-messages").addClass("has-error");
+                        $('#form-sort-messages').append(obj.order);
+                    }
+                },
+                dataType: 'json'
+            });
+        }
     });
 });
 </script>

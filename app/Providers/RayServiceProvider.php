@@ -15,6 +15,15 @@ class RayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Validator::extend('sort10', function ($attribute, $value, $parameters, $validator) {
+            $uniqueVal     = array_unique($value);
+            sort($uniqueVal);
+            $correctCount  = count($uniqueVal) == 10;
+            $correctValues = (end($uniqueVal) - $uniqueVal[0]) == 9;
+
+            return $correctCount && $correctValues;
+        });
+
         Validator::extend('color', function ($attribute, $value, $parameters, $validator) {
             return (bool) preg_match('/#([a-f0-9]{3}){1,2}\b/i', $value);
         });

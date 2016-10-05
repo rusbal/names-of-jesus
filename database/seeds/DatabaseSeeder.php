@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
          * Set name.number to be equal to name.id
          */
         foreach (Name::all() as $name) {
-            $name->number = $name->id;
+            $name->order = $name->id;
             $name->save();
         }
 

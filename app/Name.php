@@ -2,11 +2,17 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Name extends Model
 {
     protected $guarded = ['id'];
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order', 'asc')->get();
+    }
 
     public function revisions()
     {
@@ -35,6 +41,32 @@ class Name extends Model
         }
 
         parent::create([])->init_revision($name);
+    }
+
+    static public function updateSort($nameIds)
+    {
+        $order = Name::whereIn('order', $nameIds)->min('order');
+        $order_arr = [];
+
+        DB::beginTransaction();
+
+        foreach ($nameIds as $id) {
+            $name = Name::whereId($id)->first();
+
+            if (!$name) {
+                DB::rollBack();
+                return false;
+            }
+
+            $order_arr[] = $order;
+            $name->order = $order;
+            $name->save();
+
+            $order += 1;
+        }
+
+        DB::commit();
+        return $order_arr;
     }
 
     /**
