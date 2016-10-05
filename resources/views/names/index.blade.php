@@ -110,10 +110,12 @@ $(function(){
                     reNumber(response.order);
                 },
                 error: function(data) {
-                    var obj = jQuery.parseJSON(data.responseText);
-                    if (obj.order) {
+                    console.log(data);
+                    var obj = jQuery.parseJSON(data.responseText),
+                        err = obj.order ? obj.order : obj.error;
+                    if (err) {
                         $("#sort-messages").addClass("has-error");
-                        $('#form-sort-messages').append(obj.order);
+                        $('#form-sort-messages').append(err);
                     }
                 },
                 dataType: 'json'
