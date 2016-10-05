@@ -87,7 +87,7 @@ $(function(){
         $("#sort-messages")
             .removeClass("has-success")
             .removeClass("has-error");
-        $('#form-sort-messages').html('');
+        $('#form-sort-messages').html('&nbsp;');
     };
 
     var el = document.getElementById('names-list');
@@ -110,7 +110,6 @@ $(function(){
                     reNumber(response.order);
                 },
                 error: function(data) {
-                    console.log(data);
                     var obj = jQuery.parseJSON(data.responseText),
                         err = obj.order ? obj.order : obj.error;
                     if (err) {
