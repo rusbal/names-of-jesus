@@ -21,7 +21,9 @@ class Name extends Model
 
     public function latestRevision()
     {
-        return $this->hasOne(Revision::class)->orderBy('updated_at', 'desc');
+        return $this->hasOne(Revision::class)
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('id', 'desc');
     }
 
     public function createRevision($data)
