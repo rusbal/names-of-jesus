@@ -9,6 +9,7 @@ use Auth;
 use App\Http\Requests;
 
 use App\Name;
+use App\Comment;
 use App\User;
 use App\Revision;
 
@@ -117,7 +118,8 @@ class RevisionController extends Controller
     {
         $authors = Revision::authorsOnNameId($name->id);
         $isOwner = Auth::user()->id == $revision->user_id;
+        $comments = Comment::forName($name->id);
 
-        return view('revision.edit', compact('name', 'revision', 'authors', 'isOwner'));
+        return view('revision.edit', compact('name', 'revision', 'authors', 'isOwner', 'comments'));
     }
 }

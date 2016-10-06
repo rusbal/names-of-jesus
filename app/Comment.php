@@ -19,4 +19,24 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Static
+     */
+    static public function forName($nameId)
+    {
+        $comments = Comment::whereNameId($nameId)
+            ->orderBy('comment_on')
+            ->orderBy('updated_at')
+            ->orderBy('id')
+            ->get();
+
+        $grouped = array();
+
+        foreach ($comments as $comment) {
+            $grouped[$comment->comment_on][] = $comment->toArray();
+        }
+
+        return $grouped;
+    }
 }

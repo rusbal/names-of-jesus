@@ -64,6 +64,20 @@ class ViewHelper
         return $html;
     }
 
+    public function listComments($data, $style = 'warning')
+    {
+        if (!$data) return;
+
+        $lis = '';
+        foreach ($data as $datum) {
+            $lis .= '
+                <li class="list-group-item list-group-item-warning">'. $datum['comment'] .'</li>';
+        }
+
+        return '
+            <ul class="list-group">' . $lis . '</ul>';
+    }
+
     /**
      * Private
      */
