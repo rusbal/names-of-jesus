@@ -22,10 +22,10 @@ class NameController extends Controller
     public function index()
     {
         $names = Name::with('latestRevision')->ordered();
-        $colors = User::colors();
+        $users = User::colors();
         $revision_count = Revision::revisionUserCount();
 
-        return view('names.index', compact('names', 'colors', 'revision_count'));
+        return view('names.index', compact('names', 'users', 'revision_count'));
     }
 
     public function create()

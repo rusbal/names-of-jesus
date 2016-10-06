@@ -47,6 +47,6 @@ class User extends Authenticatable
 
     static public function colors()
     {
-        return User::pluck('color', 'id')->toArray();
+        return User::select('id', 'color', 'name')->get();
     }
 }

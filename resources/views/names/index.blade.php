@@ -34,18 +34,20 @@
                                 <div class="col-xs-1 name-order" data-id="{{ $name->id }}">
                                     {{ $name->order }}
                                 </div>
-                                <div class="col-xs-9">
+                                <div class="col-xs-7">
                                     <span class="drag-handle">☰</span>
                                     <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-4">
                                     <div class="pull-right">
 
-                                        @foreach($colors as $user_id => $color)
-                                        <a href="{{ route('latest-author-revision', [$name->id, $user_id]) }}">
-                                            <span class="badge" style="background:{!! $color !!}">{!! @$revision_count[$name->id][$user_id] !!}</span>
-                                        </a>
+                                        @foreach($users as $user)
+                                            <a data-toggle="tooltip" title="{{ $user->name }}" href="{{ route('latest-author-revision', [$name->id, $user->id]) }}">
+                                                <span class="badge" style="background:{!! $user->color !!}">{!! @$revision_count[$name->id][$user->id] !!}</span>
+                                            </a>
                                         @endforeach
+
+                                        <span class="">{!! $helper->coloredStatus($name->status) !!}</span>
 
                                     </div>
                                 </div>

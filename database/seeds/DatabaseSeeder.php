@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
          */
         foreach (Name::all() as $name) {
             $name->order = $name->id;
+            $name->status = 'In progress';
             $name->save();
         }
 
