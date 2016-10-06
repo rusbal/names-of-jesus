@@ -44,3 +44,19 @@ $factory->define(App\Revision::class, function (Faker\Generator $faker) {
         'responsibility'   => $faker->paragraph,
     ];
 });
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+
+    $names = App\Name::select('id')->pluck('id');
+    $users = App\User::select('id')->pluck('id');
+    $enum  = App\Comment::getEnumValues('comment_on');
+    $idx   = array_rand($enum);
+
+    return [
+        'name_id'    => $names->random(),
+        'user_id'    => $users->random(),
+        'comment'    => $faker->paragraph,
+        'comment_on' => $enum[$idx],
+    ];
+});
+

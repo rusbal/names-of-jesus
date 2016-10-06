@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         App\User::truncate();
         App\Name::truncate();
         App\Revision::truncate();
+        App\Comment::truncate();
 
         $this->call(UsersTableSeeder::class);
         $this->call(NamesTableSeeder::class);
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(RevisionsTableSeeder::class);
+        $this->call(CommentsTableSeeder::class);
     }
 }
