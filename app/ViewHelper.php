@@ -71,7 +71,7 @@ class ViewHelper
         $lis = '';
         foreach ($data as $datum) {
             $lis .= '
-                <li class="list-group-item list-group-item-warning">'. $datum['comment'] .'</li>';
+                <li class="list-group-item list-group-item-warning"><small>'. $datum['comment'] .'</small></li>';
         }
 
         return '
