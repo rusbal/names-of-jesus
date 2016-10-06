@@ -51,7 +51,7 @@
 
                     </div>
 
-                    {!! $helper->statusButtonSelection($name->status) !!} 
+                    {!! $helper->statusButtonSelection($name->status, 'update-status') !!} 
                 </div>
             </div>
         </div>

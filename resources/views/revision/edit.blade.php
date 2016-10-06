@@ -88,5 +88,11 @@ $(function(){
 
 });
 
+/**
+ * Status submission handling
+ */
+$(function(){
+});
+
 </script>
 @endsection

@@ -54,24 +54,22 @@ class ViewHelper
         }
     }
 
-    public function statusButtonSelection($currentStatus)
+    public function statusButtonSelection($currentStatus, $class)
     {
-        $statuses = Name::getEnumValues('status');
+        $statuses = Name::getEnumValuesExcept('status', $currentStatus);
+        $liStatus = '';
 
-        if (($key = array_search($currentStatus, $statuses)) !== false) {
-            unset($statuses[$key]);
-        }
-
-        $otherStatus = '';
         foreach ($statuses as $status) {
-            $otherStatus .= '<li><a href="#" onclick="return false" class="submit-new-revision">' . $status . '</a></li>';
+            $liStatus .= '<li><a href="#" onclick="return false" class="' . $class . '">' . $status . '</a></li>';
         }
 
-        return '<div class="btn-group">
-                    <button type="button" class="btn '. $this->coloredStatusClass('In progress') .' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status: <b>' . $currentStatus . '</b> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">' . $otherStatus . '</ul>
-                </div>';
+        return '
+            <div class="btn-group">
+                <button type="button" class="btn '. $this->coloredStatusClass($currentStatus) .' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status: <b>' . $currentStatus . '</b> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">' . $liStatus . '</ul>
+            </div>
+        ';
     }
 
     /**
