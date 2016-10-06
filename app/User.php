@@ -36,4 +36,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Revision::class)->limit($limit)->orderBy('id', 'desc');
     }
+
+    /**
+     * Static
+     */
+    static public function latestRevisionOnName($userId, $nameId)
+    {
+        return User::find($userId)->latestRevisions(1)->whereNameId($nameId)->first();
+    }
+
+    static public function colors()
+    {
+        return User::pluck('color', 'id')->toArray();
+    }
 }

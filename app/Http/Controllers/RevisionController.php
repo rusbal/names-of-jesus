@@ -9,6 +9,7 @@ use Auth;
 use App\Http\Requests;
 
 use App\Name;
+use App\User;
 use App\Revision;
 
 
@@ -57,6 +58,13 @@ class RevisionController extends Controller
         return redirect()->action(
             'RevisionController@index', [$name->id]
         )->with('status', "Revision '{$revision->revision_title}' was successfully deleted.");
+    }
+
+    public function editAuthorRevision($nameId, $authorId)
+    {
+        $revision = User::latestRevisionOnName($authorId, $nameId);
+
+        return redirect()->action( 'RevisionController@edit', [$nameId, $revision->id]);
     }
 
     /**

@@ -35,6 +35,8 @@ Route::get('/names/{name}/revisions/{revision}', 'RevisionController@edit')->nam
 Route::patch('/names/{name}/revisions/{revision}', 'RevisionController@update');
 Route::delete('/names/{name}/revisions/{revision}', 'RevisionController@destroy');
 
+Route::get('/names/{name}/author/{author}', 'RevisionController@editAuthorRevision')->name('latest-author-revision');
+
 /**
  * Admin
  */

@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
             $name->save();
         }
 
-        // $this->call(RevisionsTableSeeder::class);
+        $this->call(RevisionsTableSeeder::class);
     }
 }

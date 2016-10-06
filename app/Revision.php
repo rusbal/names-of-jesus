@@ -33,4 +33,24 @@ class Revision extends Model
 
         return $authors;
     }
+
+    static public function revisionUserCount()
+    {
+        $name_revisions = [];
+
+        $revisions = Revision::select(\DB::raw('name_id, user_id, count(*) as count'))->groupBy(['name_id', 'user_id'])->get();
+
+        foreach ($revisions as $revision) {
+            $name_id = $revision->name_id;
+            $user_id = $revision->user_id;
+            $count   = $revision->count;
+
+            if (!isset($name_revisions[$name_id])) {
+                $name_revisions[$name_id] = [];
+            }
+            $name_revisions[$name_id][$user_id] = $count;
+        }
+
+        return $name_revisions;
+    }
 }

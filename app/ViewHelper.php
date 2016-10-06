@@ -11,6 +11,11 @@ class ViewHelper
         return "{$revision->updated_at->format('d.M hA')} $action by {$this->coloredAuthorName($revision)}";
     }
 
+    public function revisionCount($nameId, $userIds)
+    {
+        return Revision::whereNameId($nameId)->whereIn('user_id', $userIds)->withCount('user')->get();
+    }
+
     /**
      * Private
      */

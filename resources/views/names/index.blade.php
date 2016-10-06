@@ -1,3 +1,4 @@
+@inject('helper', 'App\ViewHelper')
 @extends('layouts.app')
 
 @section('content')
@@ -39,8 +40,13 @@
                                 </div>
                                 <div class="col-xs-2">
                                     <div class="pull-right">
-                                        <span class="badge">14</span>
-                                        <span class="badge">1</span>
+
+                                        @foreach($colors as $user_id => $color)
+                                        <a href="{{ route('latest-author-revision', [$name->id, $user_id]) }}">
+                                            <span class="badge" style="background:{!! $color !!}">{!! @$revision_count[$name->id][$user_id] !!}</span>
+                                        </a>
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
