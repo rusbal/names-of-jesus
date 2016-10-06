@@ -16,6 +16,25 @@ class ViewHelper
         return Revision::whereNameId($nameId)->whereIn('user_id', $userIds)->withCount('user')->get();
     }
 
+    public function coloredStatusClass($status, $prefix = 'btn-')
+    {
+        if ($status == 'Not started') {
+            return 'btn-danger';
+
+        } else if ($status == 'Started') {
+            return 'btn-info';
+
+        } else if ($status == 'In progress') {
+            return 'btn-success';
+
+        } else if ($status == 'For review') {
+            return 'btn-primary';
+
+        } else if ($status == 'Reviewed') {
+            return 'btn-default';
+        }
+    }
+
     public function coloredStatus($status)
     {
         if ($status == 'Not started') {
@@ -33,6 +52,26 @@ class ViewHelper
         } else if ($status == 'Reviewed') {
             return '<span class="label label-success">' . $status . '</span>';
         }
+    }
+
+    public function statusButtonSelection($currentStatus)
+    {
+        $statuses = Name::getEnumValues('status');
+
+        if (($key = array_search($currentStatus, $statuses)) !== false) {
+            unset($statuses[$key]);
+        }
+
+        $otherStatus = '';
+        foreach ($statuses as $status) {
+            $otherStatus .= '<li><a href="#" onclick="return false" class="submit-new-revision">' . $status . '</a></li>';
+        }
+
+        return '<div class="btn-group">
+                    <button type="button" class="btn '. $this->coloredStatusClass('In progress') .' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status: <b>' . $currentStatus . '</b> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">' . $otherStatus . '</ul>
+                </div>';
     }
 
     /**

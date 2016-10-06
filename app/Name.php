@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Name extends Model
 {
+    use EnumTrait;
+
     protected $guarded = ['id'];
 
     public function scopeOrdered($query)

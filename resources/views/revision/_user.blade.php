@@ -9,7 +9,6 @@
                 </div>
 
                 <div class="pull-right">
-
                     @foreach ($authors as $authorRevisions)
 
                         <!-- Single button -->
@@ -51,6 +50,8 @@
                     @endif
 
                     </div>
+
+                    {!! $helper->statusButtonSelection($name->status) !!} 
                 </div>
             </div>
         </div>
