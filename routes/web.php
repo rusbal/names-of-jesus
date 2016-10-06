@@ -25,6 +25,7 @@ Route::get('/names/new', 'NameController@create');
 Route::post('/names',    'NameController@store');
 
 // Sort
+Route::post('ajax/names/status/{name}', 'NameController@setStatus');
 Route::post('ajax/names/sort', 'NameSortController');
 
 /**

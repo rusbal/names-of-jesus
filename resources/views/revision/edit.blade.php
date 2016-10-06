@@ -92,6 +92,30 @@ $(function(){
  * Status submission handling
  */
 $(function(){
+
+    var ajaxSetup = function() {
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+    };
+
+    var ajaxSetStatus = function($this) {
+        ajaxSetup();
+        var data = {
+            status: $($this).html()
+        };
+        $.ajax({
+            type: "POST",
+            url: '/ajax/names/status/' + window.NameID,
+            data: data,
+            success: function(response) {
+                $('#update-status').html(response.html);
+                $('.update-status').on('click', function(){ ajaxSetStatus(this); });
+            },
+            dataType: 'json'
+        });
+    };
+
+    $('.update-status').on('click', function(){ ajaxSetStatus(this); });
+
 });
 
 </script>

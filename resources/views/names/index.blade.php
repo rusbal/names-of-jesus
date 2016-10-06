@@ -37,6 +37,8 @@
                                 <div class="col-xs-7">
                                     <span class="drag-handle">☰</span>
                                     <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
+
+                                    &nbsp; {!! $helper->coloredStatus($name->status) !!}
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="pull-right">
@@ -46,8 +48,6 @@
                                                 <span class="badge" style="background:{!! $user->color !!}">{!! @$revision_count[$name->id][$user->id] !!}</span>
                                             </a>
                                         @endforeach
-
-                                        <span class="">{!! $helper->coloredStatus($name->status) !!}</span>
 
                                     </div>
                                 </div>

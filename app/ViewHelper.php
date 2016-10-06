@@ -1,4 +1,7 @@
 <?php
+/**
+ * Plain Object: ViewHelper
+ */
 
 namespace App;
 
@@ -16,60 +19,49 @@ class ViewHelper
         return Revision::whereNameId($nameId)->whereIn('user_id', $userIds)->withCount('user')->get();
     }
 
+    public function statusToBootstrap($status, $prefix = '')
+    {
+        $array = array(
+            'Not started' => 'default',
+            'Started'     => 'warning',
+            'In progress' => 'info',
+            'For review'  => 'success',
+            'Reviewed'    => 'primary',
+        );
+        return $prefix . $array[$status];
+    }
+
     public function coloredStatusClass($status, $prefix = 'btn-')
     {
-        if ($status == 'Not started') {
-            return 'btn-danger';
-
-        } else if ($status == 'Started') {
-            return 'btn-info';
-
-        } else if ($status == 'In progress') {
-            return 'btn-success';
-
-        } else if ($status == 'For review') {
-            return 'btn-primary';
-
-        } else if ($status == 'Reviewed') {
-            return 'btn-default';
-        }
+        return $this->statusToBootstrap($status, $prefix);
     }
 
     public function coloredStatus($status)
     {
-        if ($status == 'Not started') {
-            return '<span class="label label-danger">' . $status . '</span>';
-
-        } else if ($status == 'Started') {
-            return '<span class="label label-default">' . $status . '</span>';
-
-        } else if ($status == 'In progress') {
-            return '<span class="label label-info">' . $status . '</span>';
-
-        } else if ($status == 'For review') {
-            return '<span class="label label-primary">' . $status . '</span>';
-
-        } else if ($status == 'Reviewed') {
-            return '<span class="label label-success">' . $status . '</span>';
-        }
+        return '<span class="label label-' . $this->statusToBootstrap($status) . '">' . $status . '</span>';
     }
 
     public function statusButtonSelection($currentStatus, $class)
     {
-        $statuses = Name::getEnumValuesExcept('status', $currentStatus);
-        $liStatus = '';
-
-        foreach ($statuses as $status) {
-            $liStatus .= '<li><a href="#" onclick="return false" class="' . $class . '">' . $status . '</a></li>';
-        }
-
         return '
-            <div class="btn-group">
+            <div id="' . $class . '" class="btn-group">
                 <button type="button" class="btn '. $this->coloredStatusClass($currentStatus) .' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status: <b>' . $currentStatus . '</b> <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">' . $liStatus . '</ul>
+                <ul class="dropdown-menu">
+                    ' . $this->statusLiSelection( Name::getEnumValuesExcept('status', $currentStatus), $class) . '
+                </ul>
             </div>
         ';
+    }
+
+    public function statusLiSelection($statuses, $class)
+    {
+        $html = '';
+        foreach ($statuses as $status) {
+            $html .= '
+                <li><a href="#" onclick="return false" class="' . $class . '">' . $status . '</a></li>';
+        }
+        return $html;
     }
 
     /**

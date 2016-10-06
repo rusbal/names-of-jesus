@@ -19,6 +19,10 @@
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
+    <?php $nameID = @$name->id;
+        echo "
+        window.NameID = '$nameID';
+        "; ?>
     </script>
 </head>
 <body>

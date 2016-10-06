@@ -11,6 +11,7 @@ use Auth;
 use App\Name;
 use App\Revision;
 use App\User;
+use App\ViewHelper;
 
 class NameController extends Controller
 {
@@ -38,5 +39,22 @@ class NameController extends Controller
         $name = Name::createAndInitRevision($request->get('name'));
 
         return redirect('/names/new')->with('status', 'Newly added: ' . $request->get('name')); 
+    }
+
+    public function setStatus(Name $name, Request $request)
+    {
+        $name->status = $request->status;
+
+        if ($name->save()) {
+
+            $helper = new ViewHelper;
+
+            return response()->json([ 
+                'status' => $request->status,
+                'html'   => $helper->statusButtonSelection($request->status, 'update-status')
+            ], 200);
+        }
+
+        return response()->json([ 'order' => 'Processing error.' ], 422);
     }
 }
