@@ -190,16 +190,52 @@ $(function(){
         .insertBefore( formItem );
     };
 
-    $('.add-comment-btn').on('click', function(){
-        $(this).siblings('.message').removeClass('hidden');
-        increaseCommentCount(this);
-        addCommentRow(this);
+    var ajaxAddComment = function($this) {
 
-        /**
-         * Reset input
-         */
-        $(this).parent().siblings('textarea').val('');
-        $(this).siblings('.message').addClass('hidden');
+        var textarea = $($this).parent().siblings('textarea');
+        var comment_entry = textarea.val();
+
+        if (comment_entry == '') {
+            return;
+        }
+
+        $($this).siblings('.message').removeClass('hidden');
+
+        var data = {
+            comment: comment_entry,
+            comment_on: textarea.data('comment-on')
+        };
+
+        window.Global.ajaxSetup();
+
+        $.ajax({
+            type: "POST",
+            url: '/ajax/' + window.Laravel.name.id + '/comments',
+            data: data,
+            success: function(response) {
+                increaseCommentCount($this);
+                addCommentRow($this);
+
+                /**
+                 * Reset input
+                 */
+                $($this).parent().siblings('textarea').val('');
+                $($this).siblings('.message').addClass('hidden');
+            },
+            dataType: 'json'
+        });
+    };
+
+    $('.add-comment-btn').on('click', function(){
+        var form = $(this).parent();
+
+        if ($(form).siblings('span.label').is(':hidden')) {
+            $(form).siblings('span.label, textarea').slideDown('slow', function(){
+                $(this).focus();
+            });
+        } else {
+            ajaxAddComment(this);
+        }
     });
 });
 

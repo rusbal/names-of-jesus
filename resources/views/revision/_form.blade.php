@@ -15,7 +15,7 @@
                             <br> {!! $helper->seeCommentButton(@$comments['verse']) !!}
                         </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['verse'], 'hidden') !!}
+                            {!! $helper->listComments('verse', @$comments['verse']) !!}
                             <textarea class="form-paper-control" rows="1" id="verse" name="verse" autofocus>{!! $revision->verse !!}</textarea>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                             <br> {!! $helper->seeCommentButton(@$comments['meaning_function']) !!}
                         </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['meaning_function'], 'hidden') !!}
+                            {!! $helper->listComments('meaning_function', @$comments['meaning_function']) !!}
                             <textarea class="form-paper-control" rows="1" id="meaning_function" name="meaning_function">{!! $revision->meaning_function !!}</textarea>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             <br> {!! $helper->seeCommentButton(@$comments['identical_titles']) !!}
                         </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['identical_titles'], 'hidden') !!}
+                            {!! $helper->listComments('identical_titles', @$comments['identical_titles']) !!}
                             <textarea class="form-paper-control" rows="1" id="identical_titles" name="identical_titles">{!! $revision->identical_titles !!}</textarea>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <br> {!! $helper->seeCommentButton(@$comments['significance']) !!}
                         </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['significance'], 'hidden') !!}
+                            {!! $helper->listComments('significance', @$comments['significance']) !!}
                             <textarea class="form-paper-control" rows="1" id="significance" name="significance">{!! $revision->significance !!}</textarea>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <br> {!! $helper->seeCommentButton(@$comments['responsibility']) !!}
                         </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['responsibility'], 'hidden') !!}
+                            {!! $helper->listComments('responsibility', @$comments['responsibility']) !!}
                             <textarea class="form-paper-control" rows="1" id="responsibility" name="responsibility">{!! $revision->responsibility !!}</textarea>
                         </div>
                     </div>

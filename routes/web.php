@@ -39,6 +39,11 @@ Route::delete('/names/{name}/revisions/{revision}', 'RevisionController@destroy'
 Route::get('/names/{name}/author/{author}', 'RevisionController@editAuthorRevision')->name('latest-author-revision');
 
 /**
+ * Comment
+ */
+Route::post('ajax/{name}/comments', 'CommentController@create');
+
+/**
  * Admin
  */
 Route::group(['namespace' => 'Auth'], function() {

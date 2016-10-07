@@ -82,30 +82,30 @@ class ViewHelper
         return $html;
     }
 
-    public function listComments($data, $class, $style = 'warning')
+    public function listComments($comment_on, $data, $class = 'hidden', $style = 'warning')
     {
-        if (!$data) return;
-
         $hidden = $class == 'hidden' ? ' style="display:none" ' : '';
 
         $lis = '';
-        foreach ($data as $datum) {
-            $lis .= '
-                <li class="list-group-item list-group-item-warning" data-id="'. $datum->id .'" ' . $hidden . '>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="label" style="background:' . $datum->user->color . '">' . $datum->user->initials . '</span>
-                    <small>'. $datum->comment .'</small>
-                </li>';
+        if ($data) {
+            foreach ($data as $datum) {
+                $lis .= '
+                    <li class="list-group-item list-group-item-warning" data-id="'. $datum->id .'" ' . $hidden . '>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span class="label" style="background:' . $datum->user->color . '">' . $datum->user->initials . '</span>
+                        <small>'. $datum->comment .'</small>
+                    </li>';
+            }
         }
 
         $addCommentForm = '
-                <li class="list-group-item list-group-item-warning">
-                    <span class="label" style="background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
+                <li class="list-group-item list-group-item-warning clearfix">
+                    <span class="label" style="display:none; background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
                     <div class="pull-right">
                         <small class="message hidden"> Processing... </small>
                         <button class="btn btn-xs btn-warning add-comment-btn">Add Comment</button>
                     </div>
-                    <textarea class="form-paper-control" id="" name=""></textarea>
+                    <textarea class="form-paper-control" data-comment-on="' . $comment_on . '" style="display:none"></textarea>
                 </li>';
 
         return '
@@ -116,12 +116,10 @@ class ViewHelper
     {
         $count = count($comments);
 
-        if ($count > 0) {
-            return '
+        return '
             <button type="button" class="btn btn-' . $style . ' btn-xs see-comment-button">
                 <span class="comment-count">' . $count . '</span> Comments
             </button>';
-        }
     }
 
     /**
