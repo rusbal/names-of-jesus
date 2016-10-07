@@ -5767,38 +5767,22 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-textarea.form-paper-control {
-  height: auto;
-  box-sizing: border-box;
-  resize: none; }
-
 .form-paper-control {
-  background-color: #f5f8fa;
+  font: 15px/25px "Open Sans",sans-serif;
   border-radius: 0;
   border-color: white;
-  height: 36px;
-  padding: 6px 12px;
-  width: 100%;
-  font: 15px/25px "Open Sans",sans-serif; }
-
-textarea.form-paper-control {
-  padding: 6px 12px 8px; }
-
-.form-paper-control {
-  background-color: #fff; }
-
-input[type=text].form-paper-control,
-textarea.form-paper-control {
   border: medium none;
   border-color: #e5e5e5;
   border-style: none none solid;
   border-width: 0 0 1px;
-  padding-bottom: 4px; }
-  input[type=text].form-paper-control:focus,
-  textarea.form-paper-control:focus {
+  height: 36px;
+  width: 100%;
+  padding: 6px 12px 4px;
+  background-color: #fff;
+  overflow-y: hidden; }
+  .form-paper-control:focus {
     background-color: #EDFFED;
     color: #000;
-    overflow-y: hidden;
     border-color: #68aa68;
     border-width: 0 0 2px;
     -webkit-transition: border .5s ease-out;
@@ -5807,10 +5791,22 @@ textarea.form-paper-control {
     transition: border-color .5s ease-out; }
 
 textarea.form-paper-control {
+  height: auto;
+  box-sizing: border-box;
+  resize: none;
+  padding: 6px 12px 8px;
   min-height: 60px; }
   textarea.form-paper-control:focus {
     border-width: 0 0 2px;
     padding-bottom: 6px; }
+
+.comments textarea.form-paper-control {
+  font-family: "Raleway",sans-serif;
+  font-size: 85%;
+  color: #8a6d3b;
+  background-color: white;
+  border-color: #c5b143;
+  min-height: 20px; }
 
 legend input[type=text] {
   font-weight: bold;

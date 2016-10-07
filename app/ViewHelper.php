@@ -5,6 +5,8 @@
 
 namespace App;
 
+use Auth;
+
 class ViewHelper
 {
     public function latestActivity($revision)
@@ -80,8 +82,15 @@ class ViewHelper
                 </li>';
         }
 
+        $addCommentForm = '
+                <li class="list-group-item list-group-item-warning">
+                    <span class="label" style="background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
+                    <button class="btn btn-xs btn-warning pull-right">Add Comment</button>
+                    <textarea class="form-paper-control" id="" name=""></textarea>
+                </li>';
+
         return '
-            <ul class="list-group comments" ' . $hidden . '>' . $lis . '</ul>';
+            <ul class="list-group comments" ' . $hidden . '>' . $lis . $addCommentForm . '</ul>';
     }
 
     public function seeCommentButton($comments, $style = 'default')
