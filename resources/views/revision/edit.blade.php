@@ -181,7 +181,7 @@ $(function(){
             .html('<span aria-hidden="true">×</span>')
             .on('click', function(){ hideComment(this); });
 
-        var entryComment = $('<small>').html(' ' + Global.nl2br( $($this).siblings('textarea').val() ));
+        var entryComment = $('<small>').html(' ' + Global.nl2br( $($this).parent().siblings('textarea').val() ));
             
         $( newItem )
             .append(closeButton)
@@ -191,9 +191,15 @@ $(function(){
     };
 
     $('.add-comment-btn').on('click', function(){
+        $(this).siblings('.message').removeClass('hidden');
         increaseCommentCount(this);
         addCommentRow(this);
-        $(this).siblings('textarea').val('');
+
+        /**
+         * Reset input
+         */
+        $(this).parent().siblings('textarea').val('');
+        $(this).siblings('.message').addClass('hidden');
     });
 });
 

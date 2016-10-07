@@ -101,7 +101,10 @@ class ViewHelper
         $addCommentForm = '
                 <li class="list-group-item list-group-item-warning">
                     <span class="label" style="background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
-                    <button class="btn btn-xs btn-warning pull-right add-comment-btn">Add Comment</button>
+                    <div class="pull-right">
+                        <small class="message hidden"> Processing... </small>
+                        <button class="btn btn-xs btn-warning add-comment-btn">Add Comment</button>
+                    </div>
                     <textarea class="form-paper-control" id="" name=""></textarea>
                 </li>';
 
