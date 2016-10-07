@@ -39,6 +39,9 @@ class User extends Authenticatable
         return $this->hasMany(Revision::class)->limit($limit)->orderBy('id', 'desc');
     }
 
+    /**
+     * Automatically set name initials if not value is given.
+     */
     public function setInitialsAttribute($value)
     {
         $this->attributes['initials'] = $value ? $value : String::acronym($this->attributes['name']);

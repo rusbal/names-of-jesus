@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use Auth;
-use App\Http\Requests;
+use App\Http\Requests\UserProfileRequest;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -17,19 +17,17 @@ class AdminController extends Controller
 
     public function index()
     {
-        $tmp = '';
+        $user = Auth::user();
 
-        return view('admin.index', compact('tmp'));
+        return view('admin.profile', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(UserProfileRequest $request)
     {
-        $this->validate($request, [
-            'color' => 'required|color'
-        ]);
-
         $user = Auth::user();
-        $user->color = $request->color;
+        $user->name     = $request->name;
+        $user->initials = $request->initials;
+        $user->color    = $request->color;
         $user->save();
 
         return redirect()->back()->with('status', 'Your profile was successfully updated.'); 
