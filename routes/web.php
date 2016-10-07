@@ -44,6 +44,12 @@ Route::get('/names/{name}/author/{author}', 'RevisionController@editAuthorRevisi
 Route::post('ajax/{name}/comments', 'CommentController@create');
 
 /**
+ * MS Word Download
+ */
+Route::get('docs', 'WordController@index');
+Route::get('docs/new', 'WordDocGenerator');
+
+/**
  * Admin
  */
 Route::group(['namespace' => 'Auth'], function() {

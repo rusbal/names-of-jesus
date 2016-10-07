@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "doctrine/dbal": "^2.5",
         "laravelcollective/html": "^5.3.0",
-        "radic/blade-extensions": "~6.2"
+        "radic/blade-extensions": "~6.2",
+        "phpoffice/phpword": "^0.13.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
