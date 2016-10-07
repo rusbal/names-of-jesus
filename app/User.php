@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Helpers\String;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -35,6 +37,11 @@ class User extends Authenticatable
     public function latestRevisions($limit = 6)
     {
         return $this->hasMany(Revision::class)->limit($limit)->orderBy('id', 'desc');
+    }
+
+    public function setInitialsAttribute($value)
+    {
+        $this->attributes['initials'] = $value ? $value : String::acronym($this->attributes['name']);
     }
 
     /**

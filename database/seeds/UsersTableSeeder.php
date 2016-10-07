@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
 
         App\User::create([
             'name'     => 'Raymond Usbal',
+            'initials' => '',
             'email'    => 'raymond@philippinedev.com',
             'password' => bcrypt('default'),
             'color'    => $faker->hexcolor,
@@ -22,6 +23,7 @@ class UsersTableSeeder extends Seeder
 
         App\User::create([
             'name'     => 'Arthur Macarubbo',
+            'initials' => '',
             'email'    => 'arthur.macarubbo@yahoo.com',
             'password' => bcrypt('default'),
             'color'    => $faker->hexcolor,
