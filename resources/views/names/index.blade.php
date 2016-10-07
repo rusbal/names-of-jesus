@@ -31,24 +31,31 @@
                     @foreach($names as $name)
                         <li class="list-group-item">
                             <div class="row">
+
                                 <div class="col-xs-1 name-order" data-id="{{ $name->id }}">
                                     {{ $name->order }}
                                 </div>
-                                <div class="col-xs-7">
+                                <div class="col-lg-8 col-xs-6">
                                     <span class="drag-handle">☰</span>
                                     <a href="{{ route('revision', [$name->id, $name->latestRevision->id]) }}">{{ $name->latestRevision->name }} </a>
-
-                                    &nbsp; {!! $helper->coloredStatus($name->status) !!}
                                 </div>
-                                <div class="col-xs-4">
-                                    <div class="pull-right">
 
-                                        @foreach($users as $user)
-                                            <a data-toggle="tooltip" title="{{ $user->name }}" href="{{ route('latest-author-revision', [$name->id, $user->id]) }}">
-                                                <span class="badge" style="background:{!! $user->color !!}">{!! @$revision_count[$name->id][$user->id] !!}</span>
-                                            </a>
-                                        @endforeach
+                                <div class="col-lg-3 col-xs-5">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-4">
+                                            <div class="pull-right">
 
+                                            @foreach($users as $user)
+                                                <a data-toggle="tooltip" title="{{ $user->name }}" href="{{ route('latest-author-revision', [$name->id, $user->id]) }}">
+                                                    <span class="badge" style="background:{!! $user->color !!}">{!! @$revision_count[$name->id][$user->id] !!}</span>
+                                                </a>
+                                            @endforeach
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-8">
+                                            {!! $helper->coloredStatus($name->status) !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
