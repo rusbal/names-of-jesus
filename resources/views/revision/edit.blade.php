@@ -123,7 +123,33 @@ $(function(){
  */
 $(function(){
     $('ul.comments button.close').on('click', function(){
-        $(this).closest('li').hide('slow', function(){ $(this).remove(); });
+        /**
+         * Close this list item
+         */
+        $(this).closest('li').slideUp('slow', function(){
+            /**
+             * Hide parent ul if all children is hidden
+             */
+            var comments = $(this).parents('ul.comments');
+            if (comments.find('li:visible').length == 0) {
+                comments.hide();
+            }
+        });
+    });
+
+    $('.see-comment-button').on('click', function(){
+        var comments = $(this).parents('div.form-group').find('ul.comments');
+        if (comments.is(':visible')) {
+            comments.find('li').slideUp('slow', function(){ 
+                if (comments.find('li:visible').length == 0) {
+                    comments.hide();
+                }
+            });
+        } else {
+            comments
+                .show()
+                .find('li').slideDown('slow');
+        }
     });
 });
 

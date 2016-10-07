@@ -26,6 +26,7 @@ class Comment extends Model
     static public function forName($nameId)
     {
         $comments = Comment::whereNameId($nameId)
+            ->with('user')
             ->orderBy('comment_on')
             ->orderBy('updated_at')
             ->orderBy('id')
@@ -34,7 +35,7 @@ class Comment extends Model
         $grouped = array();
 
         foreach ($comments as $comment) {
-            $grouped[$comment->comment_on][] = $comment->toArray();
+            $grouped[$comment->comment_on][] = $comment;
         }
 
         return $grouped;

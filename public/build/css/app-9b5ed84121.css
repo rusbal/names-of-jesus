@@ -5848,4 +5848,12 @@ label {
 .no-padding {
   padding: 0; }
 
+/**
+ * Comments
+ */
+ul.comments {
+  margin: 0;
+  -webkit-transition: all 1.5s ease;
+  transition: all 1.5s ease; }
+
 /*# sourceMappingURL=app.css.map */

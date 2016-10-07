@@ -64,21 +64,36 @@ class ViewHelper
         return $html;
     }
 
-    public function listComments($data, $style = 'warning')
+    public function listComments($data, $class, $style = 'warning')
     {
         if (!$data) return;
+
+        $hidden = $class == 'hidden' ? ' style="display:none" ' : '';
 
         $lis = '';
         foreach ($data as $datum) {
             $lis .= '
-                <li class="list-group-item list-group-item-warning" data-id="'. $datum['id'] .'">
+                <li class="list-group-item list-group-item-warning" data-id="'. $datum->id .'" ' . $hidden . '>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <small>'. $datum['comment'] .'</small>
+                    <span class="label" style="background:' . $datum->user->color . '">' . $datum->user->initials . '</span>
+                    <small>'. $datum->comment .'</small>
                 </li>';
         }
 
         return '
-            <ul class="list-group comments">' . $lis . '</ul>';
+            <ul class="list-group comments" ' . $hidden . '>' . $lis . '</ul>';
+    }
+
+    public function seeCommentButton($comments, $style = 'default')
+    {
+        $count = count($comments);
+
+        if ($count > 0) {
+            return '
+            <button type="button" class="btn btn-' . $style . ' btn-xs see-comment-button">
+                ' . $count . ' Comments
+            </button>';
+        }
     }
 
     /**

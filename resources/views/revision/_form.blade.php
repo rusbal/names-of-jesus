@@ -11,37 +11,47 @@
                     <legend><input class="form-paper-control" type="text" id="name" name="name" value="{!! $revision->name !!}" autocomplete="off"></legend>
 
                     <div class="form-group">
-                        <label for="verse" class="col-lg-3 control-label">Verse</label>
+                        <label for="verse" class="col-lg-3 control-label">Verse
+                            <br> {!! $helper->seeCommentButton(@$comments['verse']) !!}
+                        </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['verse']) !!}
+                            {!! $helper->listComments(@$comments['verse'], 'hidden') !!}
                             <textarea class="form-paper-control" rows="1" id="verse" name="verse" autofocus>{!! $revision->verse !!}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="meaning_function" class="col-lg-3 control-label">Meaning &amp; Function</label>
+                        <label for="meaning_function" class="col-lg-3 control-label">Meaning &amp; Function
+                            <br> {!! $helper->seeCommentButton(@$comments['meaning_function']) !!}
+                        </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['meaning_function']) !!}
+                            {!! $helper->listComments(@$comments['meaning_function'], 'hidden') !!}
                             <textarea class="form-paper-control" rows="1" id="meaning_function" name="meaning_function">{!! $revision->meaning_function !!}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="identical_titles" class="col-lg-3 control-label">Identical Titles</label>
+                        <label for="identical_titles" class="col-lg-3 control-label">Identical Titles
+                            <br> {!! $helper->seeCommentButton(@$comments['identical_titles']) !!}
+                        </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['identical_titles']) !!}
+                            {!! $helper->listComments(@$comments['identical_titles'], 'hidden') !!}
                             <textarea class="form-paper-control" rows="1" id="identical_titles" name="identical_titles">{!! $revision->identical_titles !!}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="significance" class="col-lg-3 control-label">Significance for Believers</label>
+                        <label for="significance" class="col-lg-3 control-label">Significance for Believers
+                            <br> {!! $helper->seeCommentButton(@$comments['significance']) !!}
+                        </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['significance']) !!}
+                            {!! $helper->listComments(@$comments['significance'], 'hidden') !!}
                             <textarea class="form-paper-control" rows="1" id="significance" name="significance">{!! $revision->significance !!}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="responsibility" class="col-lg-3 control-label">Our Responsibility</label>
+                        <label for="responsibility" class="col-lg-3 control-label">Our Responsibility
+                            <br> {!! $helper->seeCommentButton(@$comments['responsibility']) !!}
+                        </label>
                         <div class="col-lg-9">
-                            {!! $helper->listComments(@$comments['responsibility']) !!}
+                            {!! $helper->listComments(@$comments['responsibility'], 'hidden') !!}
                             <textarea class="form-paper-control" rows="1" id="responsibility" name="responsibility">{!! $revision->responsibility !!}</textarea>
                         </div>
                     </div>
