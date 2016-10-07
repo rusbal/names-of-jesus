@@ -118,5 +118,14 @@ $(function(){
 
 });
 
+/**
+ * Comments handling
+ */
+$(function(){
+    $('ul.comments button.close').on('click', function(){
+        $(this).closest('li').hide('slow', function(){ $(this).remove(); });
+    });
+});
+
 </script>
 @endsection

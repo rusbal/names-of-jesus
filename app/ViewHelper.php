@@ -71,11 +71,14 @@ class ViewHelper
         $lis = '';
         foreach ($data as $datum) {
             $lis .= '
-                <li class="list-group-item list-group-item-warning"><small>'. $datum['comment'] .'</small></li>';
+                <li class="list-group-item list-group-item-warning" data-id="'. $datum['id'] .'">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <small>'. $datum['comment'] .'</small>
+                </li>';
         }
 
         return '
-            <ul class="list-group">' . $lis . '</ul>';
+            <ul class="list-group comments">' . $lis . '</ul>';
     }
 
     /**
