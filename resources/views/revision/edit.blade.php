@@ -104,7 +104,7 @@ $(function(){
         };
         $.ajax({
             type: "POST",
-            url: '/ajax/names/status/' + window.NameID,
+            url: '/ajax/names/status/' + window.Laravel.name.id,
             data: data,
             success: function(response) {
                 $('#update-status').html(response.html);
@@ -122,19 +122,24 @@ $(function(){
  * Comments handling
  */
 $(function(){
-    $('ul.comments button.close').on('click', function(){
+
+    var hideComment = function($this) {
         /**
          * Close this list item
          */
-        $(this).closest('li').slideUp('slow', function(){
+        $($this).closest('li').slideUp('slow', function(){
             /**
              * Hide parent ul if all children is hidden
              */
-            var comments = $(this).parents('ul.comments');
+            var comments = $($this).parents('ul.comments');
             if (comments.find('li:visible').length == 0) {
                 comments.hide();
             }
         });
+    };
+
+    $('ul.comments button.close').on('click', function(){
+        hideComment(this);
     });
 
     $('.see-comment-button').on('click', function(){
@@ -150,6 +155,45 @@ $(function(){
                 .show()
                 .find('li').slideDown('slow');
         }
+    });
+
+    var increaseCommentCount = function($this){
+        var commentCount = $($this).closest('.form-group').find('.comment-count');
+        commentCount.html( parseInt(commentCount.html()) + 1 );
+    };
+
+    var addCommentRow = function($this){
+        var formItem = $($this).closest('li');
+
+        var authorSpan = $('<span>')
+            .attr('class', 'label')
+            .css('background', window.Laravel.user.color)
+            .html(window.Laravel.user.initials);
+
+        var newItem = $('<li>')
+            .attr('class', 'list-group-item list-group-item-warning');
+
+        var closeButton = $('<button>')
+            .attr('type', 'button')
+            .attr('class', 'close')
+            .attr('data-dismiss', 'alert')
+            .attr('aria-label', 'Close')
+            .html('<span aria-hidden="true">×</span>')
+            .on('click', function(){ hideComment(this); });
+
+        var entryComment = $('<small>').html(' ' + Global.nl2br( $($this).siblings('textarea').val() ));
+            
+        $( newItem )
+            .append(closeButton)
+            .append(authorSpan)
+            .append(entryComment)
+        .insertBefore( formItem );
+    };
+
+    $('.add-comment-btn').on('click', function(){
+        increaseCommentCount(this);
+        addCommentRow(this);
+        $(this).siblings('textarea').val('');
     });
 });
 

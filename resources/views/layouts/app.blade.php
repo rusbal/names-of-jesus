@@ -1,3 +1,4 @@
+@inject('helper', 'App\ViewHelper')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +16,7 @@
 
     <!-- Scripts -->
     <script src="{{ elixir('js/app.js') }}"></script>
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    <?php $nameID = @$name->id;
-        echo "
-        window.NameID = '$nameID';
-        "; ?>
-    </script>
+    <script> {!! $helper->initGlobalJsVars(@$name) !!} </script>
 </head>
 <body>
     @include('_nav')

@@ -9,6 +9,22 @@ use Auth;
 
 class ViewHelper
 {
+    public function initGlobalJsVars($name)
+    {
+        $array = array(
+            'csrfToken' => csrf_token(), 
+            'user'      => Auth::user(),
+        );
+
+        if (isset($name)) {
+            $array['name'] = $name;
+        }
+
+        echo "
+            window.Laravel = " . json_encode($array) . "
+        ";
+    }
+
     public function latestActivity($revision)
     {
         $action = ($revision->created_at == $revision->updated_at ? 'created' : 'updated');
@@ -85,7 +101,7 @@ class ViewHelper
         $addCommentForm = '
                 <li class="list-group-item list-group-item-warning">
                     <span class="label" style="background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
-                    <button class="btn btn-xs btn-warning pull-right">Add Comment</button>
+                    <button class="btn btn-xs btn-warning pull-right add-comment-btn">Add Comment</button>
                     <textarea class="form-paper-control" id="" name=""></textarea>
                 </li>';
 
@@ -100,7 +116,7 @@ class ViewHelper
         if ($count > 0) {
             return '
             <button type="button" class="btn btn-' . $style . ' btn-xs see-comment-button">
-                ' . $count . ' Comments
+                <span class="comment-count">' . $count . '</span> Comments
             </button>';
         }
     }

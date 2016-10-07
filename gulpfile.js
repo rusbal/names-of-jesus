@@ -21,11 +21,14 @@ elixir(mix => {
            'arrownextfield.jquery.js',
            'labelcolorpicker.jquery.js',
            'helpers/delete-form.js',
-           'helpers/btn-danger-hover.js'
+           'helpers/btn-danger-hover.js',
+           'global.js'
        ], 'public/js/app.js');
 
-    mix.version(['public/css/app.css',
-                 'public/js/app.js']);
+    mix.version([
+       'public/css/app.css',
+       'public/js/app.js'
+    ]);
 
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap/','public/build/fonts/bootstrap'); 
 
