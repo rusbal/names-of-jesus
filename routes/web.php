@@ -42,6 +42,7 @@ Route::get('/names/{name}/author/{author}', 'RevisionController@editAuthorRevisi
  * Comment
  */
 Route::post('ajax/{name}/comments', 'CommentController@create');
+Route::delete('ajax/comments/{comment}', 'CommentController@destroy');
 
 /**
  * MS Word Download

@@ -29,6 +29,22 @@ class CommentController extends Controller
                 return response()->json([ 'order' => 'Processing error.' ], 422);
             }
 
+            return response()->json([ 
+                'success' => true,
+                'id' => $result->id,
+            ], 200);
+        }
+    }
+
+    public function destroy(Comment $comment, Request $request)
+    {
+        if ($request->ajax()) {
+            $result = $comment->delete();
+
+            if ($result === false) {
+                return response()->json([ 'order' => 'Processing error.' ], 422);
+            }
+
             return response()->json([ 'success' => true ], 200);
         }
     }

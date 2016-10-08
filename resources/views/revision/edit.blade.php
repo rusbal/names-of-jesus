@@ -123,23 +123,8 @@ $(function(){
  */
 $(function(){
 
-    var hideComment = function($this) {
-        /**
-         * Close this list item
-         */
-        $($this).closest('li').slideUp('slow', function(){
-            /**
-             * Hide parent ul if all children is hidden
-             */
-            var comments = $($this).parents('ul.comments');
-            if (comments.find('li:visible').length == 0) {
-                comments.hide();
-            }
-        });
-    };
-
     $('ul.comments button.close').on('click', function(){
-        hideComment(this);
+        commentClose(this);
     });
 
     /**
@@ -148,17 +133,18 @@ $(function(){
     $('.see-comment-button').on('click', function(){
         var comments = $(this).parents('div.form-group').find('ul.comments'),
             count    = parseInt($(this).data('count')),
-            isShown  = ($(this).text() == 'Hide');
+            isHidden  = ($(this).text() == 'Hide');
 
-        if (isShown) {
-            setSeeCommentButtonText(this, 0);
+        if (isHidden) {
+            setSeeCommentButtonText(this);
         } else {
             $(this).text('Hide');
         }
 
         showCommentForm(comments, count);
         toggleComments(comments);
-        if (!isShown) {
+
+        if (isHidden) {
             comments.find('textarea').focus();
         }
     });
@@ -183,16 +169,18 @@ $(function(){
         }
     };
 
-    var setSeeCommentButtonText = function(btn, addVal){
-        var count = parseInt($(btn).data('count')) + addVal;
+    var adjustCommentCount = function(btn, addVal){
+        var count = parseInt($(btn).attr('data-count')),
+            newCount = count + addVal;
+        $(btn).attr('data-count', newCount);
+    }
+
+    var setSeeCommentButtonText = function(btn){
+        var count = parseInt($(btn).attr('data-count'));
         $(btn).text( count == 0 ? 'Comment' : count + ' Comments' );
     }
 
-    var increaseCommentCount = function($this){
-        setSeeCommentButtonText( $($this).closest('.form-group').find('.see-comment-button'), 1 );
-    };
-
-    var addCommentRow = function($this){
+    var addCommentRow = function($this, id){
         var formItem = $($this).closest('li');
 
         var authorSpan = $('<span>')
@@ -201,6 +189,7 @@ $(function(){
             .html(window.Laravel.user.initials);
 
         var newItem = $('<li>')
+            .attr('data-id', id)
             .attr('class', 'list-group-item list-group-item-warning');
 
         var closeButton = $('<button>')
@@ -209,7 +198,7 @@ $(function(){
             .attr('data-dismiss', 'alert')
             .attr('aria-label', 'Close')
             .html('<span aria-hidden="true">×</span>')
-            .on('click', function(){ hideComment(this); });
+            .on('click', function(){ commentClose(this); });
 
         var entryComment = $('<small>').html(' ' + Global.nl2br( $($this).parent().siblings('textarea').val() ));
             
@@ -244,8 +233,8 @@ $(function(){
             url: '/ajax/' + window.Laravel.name.id + '/comments',
             data: data,
             success: function(response) {
-                increaseCommentCount($this);
-                addCommentRow($this);
+                adjustCommentCount( $($this).closest('.form-group').find('.see-comment-button'), 1 );
+                addCommentRow($this, response.id);
 
                 /**
                  * Reset input
@@ -269,6 +258,48 @@ $(function(){
         } else {
             ajaxAddComment(this);
         }
+    });
+
+    /**
+     * Deleting of comment
+     */
+    var ajaxDeleteComment = function(id) {
+        var data = {
+            _method: 'DELETE',
+        };
+
+        window.Global.ajaxSetup();
+
+        $.ajax({
+            type: "POST",
+            url: '/ajax/comments/' + id,
+            data: data,
+            dataType: 'json'
+        });
+    };
+
+    var commentClose = function($this){
+        var li = $($this).closest('li');
+
+        if ($($this).find('span').text() == '×') {
+            var id = li.data('id'),
+                btn = $($this).closest('.form-group').find('button.see-comment-button');
+
+            ajaxDeleteComment(id);
+
+            adjustCommentCount( btn, -1 );
+
+            li.slideUp(function(){
+                $(li).remove();
+                console.log('removed li');
+            });
+        } else {
+            li.slideUp();
+        }
+    };
+
+    $('.comments button.close').on('click', function(){
+        commentClose(this);
     });
 });
 
