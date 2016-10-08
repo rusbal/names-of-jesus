@@ -15,7 +15,7 @@ class CreateNamesTable extends Migration
     {
         Schema::create('names', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('order')->default(0);
+            $table->unsignedInteger('order')->default(1);
             $table->enum('status', ['Not started', 'Started', 'In progress', 'For review', 'Reviewed'])->default('Not started');
             $table->timestamps();
         });

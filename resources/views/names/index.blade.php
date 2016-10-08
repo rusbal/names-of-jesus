@@ -105,37 +105,44 @@ $(function(){
         $('#form-sort-messages').html('&nbsp;');
     };
 
-    var el = document.getElementById('names-list');
-    var sortable = Sortable.create(el, {
-        chosenClass: 'sortable-dragged',
-        handle: '.drag-handle',
+    var initSortable = function(el){
+        return Sortable.create(el, {
+            chosenClass: 'sortable-dragged',
+            handle: '.drag-handle',
 
-        onUpdate: function (evt) {
-            ajaxSetup();
-            var data = {
-                order: collectNameOrder()
-            };
-            $.ajax({
-                type: "POST",
-                url: 'ajax/names/sort',
-                data: data,
-                success: function(response) {
-                    $("#sort-messages").addClass("has-success");
-                    $('#form-sort-messages').append('Name order was successfully updated.');
-                    reNumber(response.order);
-                },
-                error: function(data) {
-                    var obj = jQuery.parseJSON(data.responseText),
-                        err = obj.order ? obj.order : obj.error;
-                    if (err) {
-                        $("#sort-messages").addClass("has-error");
-                        $('#form-sort-messages').append(err);
-                    }
-                },
-                dataType: 'json'
-            });
-        }
-    });
+            onUpdate: function (evt) {
+                ajaxSetup();
+                var data = {
+                    order: collectNameOrder()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: 'ajax/names/sort',
+                    data: data,
+                    success: function(response) {
+                        $("#sort-messages").addClass("has-success");
+                        $('#form-sort-messages').append('Name order was successfully updated.');
+                        reNumber(response.order);
+                    },
+                    error: function(data) {
+                        var obj = jQuery.parseJSON(data.responseText),
+                            err = obj.order ? obj.order : obj.error;
+                        if (err) {
+                            $("#sort-messages").addClass("has-error");
+                            $('#form-sort-messages').append(err);
+                        }
+                    },
+                    dataType: 'json'
+                });
+            }
+        });
+    }
+
+    var el = document.getElementById('names-list');
+
+    if (el) {
+        var sortable = initSortable(el);
+    }
 });
 </script>
 @endsection

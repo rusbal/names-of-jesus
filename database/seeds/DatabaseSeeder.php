@@ -19,18 +19,18 @@ class DatabaseSeeder extends Seeder
         App\Comment::truncate();
 
         $this->call(UsersTableSeeder::class);
-        $this->call(NamesTableSeeder::class);
-
-        /**
-         * Set name.number to be equal to name.id
-         */
-        foreach (Name::all() as $name) {
-            $name->order = $name->id;
-            $name->status = 'In progress';
-            $name->save();
-        }
-
-        $this->call(RevisionsTableSeeder::class);
-        $this->call(CommentsTableSeeder::class);
+        // $this->call(NamesTableSeeder::class);
+        //
+        // /**
+        //  * Set name.number to be equal to name.id
+        //  */
+        // foreach (Name::all() as $name) {
+        //     $name->order = $name->id;
+        //     $name->status = 'In progress';
+        //     $name->save();
+        // }
+        //
+        // $this->call(RevisionsTableSeeder::class);
+        // $this->call(CommentsTableSeeder::class);
     }
 }

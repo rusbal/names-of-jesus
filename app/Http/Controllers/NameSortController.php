@@ -16,10 +16,10 @@ class NameSortController extends Controller
 
     public function __invoke(Request $request)
     {
-        $this->validate($request, 
-            [ 'order'  => 'required|sort10' ], 
-            [ 'sort10' => 'Invalid input for sorting.' ]
-        );
+        // $this->validate($request, 
+        //     [ 'order'  => 'required|sort10' ], 
+        //     [ 'sort10' => 'Invalid input for sorting.' ]
+        // );
 
         if ($request->ajax()) {
             $result = Name::updateSort($request->order);
