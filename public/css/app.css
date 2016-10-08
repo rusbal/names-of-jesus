@@ -5808,6 +5808,9 @@ textarea.form-paper-control {
   border-color: #c5b143;
   min-height: 20px; }
 
+.comments span.glyphicon {
+  font-size: 10px; }
+
 legend input[type=text] {
   font-weight: bold;
   text-align: center;

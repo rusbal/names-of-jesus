@@ -85,16 +85,22 @@ class ViewHelper
     public function listComments($comment_on, $data, $class = 'hidden', $style = 'warning')
     {
         $hidden = $class == 'hidden' ? ' style="display:none" ' : '';
+        $authUserId = Auth::user()->id;
 
         $lis = '';
         if ($data) {
             foreach ($data as $datum) {
+
+                $closeBtn = ($authUserId == $datum->user->id)
+                    ? '<span aria-hidden="true">&times;</span>'
+                    : '<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>';
+
                 $lis .= '
                     <!-- One Comment -->
                     <li class="list-group-item list-group-item-warning" data-id="'. $datum->id .'" ' . $hidden . '>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">' . $closeBtn . '</button>
                         <span class="label" style="background:' . $datum->user->color . '">' . $datum->user->initials . '</span>
-                        <small>'. $datum->comment .'</small>
+                        <small>'. nl2br($datum->comment) .'</small>
                     </li>';
             }
         }
