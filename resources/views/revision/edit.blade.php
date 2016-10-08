@@ -123,19 +123,15 @@ $(function(){
  */
 $(function(){
 
-    $('ul.comments button.close').on('click', function(){
-        commentClose(this);
-    });
-
     /**
      * See comment | Add Comment button
      */
     $('.see-comment-button').on('click', function(){
-        var comments = $(this).parents('div.form-group').find('ul.comments'),
-            count    = parseInt($(this).data('count')),
-            isHidden  = ($(this).text() == 'Hide');
+        var comments = $(this).closest('div.form-group').find('ul.comments'),
+            count    = parseInt($(this).attr('data-count')),
+            willHideComments = ($(this).text() == 'Hide');
 
-        if (isHidden) {
+        if (willHideComments) {
             setSeeCommentButtonText(this);
         } else {
             $(this).text('Hide');
@@ -144,7 +140,9 @@ $(function(){
         showCommentForm(comments, count);
         toggleComments(comments);
 
-        if (isHidden) {
+        if (willHideComments || count > 0) {
+            $(this).parent().click();
+        } else {
             comments.find('textarea').focus();
         }
     });
@@ -291,14 +289,13 @@ $(function(){
 
             li.slideUp(function(){
                 $(li).remove();
-                console.log('removed li');
             });
         } else {
             li.slideUp();
         }
     };
 
-    $('.comments button.close').on('click', function(){
+    $('ul.comments button.close').on('click', function(){
         commentClose(this);
     });
 });
