@@ -90,6 +90,7 @@ class ViewHelper
         if ($data) {
             foreach ($data as $datum) {
                 $lis .= '
+                    <!-- One Comment -->
                     <li class="list-group-item list-group-item-warning" data-id="'. $datum->id .'" ' . $hidden . '>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <span class="label" style="background:' . $datum->user->color . '">' . $datum->user->initials . '</span>
@@ -99,8 +100,9 @@ class ViewHelper
         }
 
         $addCommentForm = '
+                <!-- Comment Entry Form -->
                 <li class="list-group-item list-group-item-warning clearfix">
-                    <span class="label" style="display:none; background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
+                    <span class="label" style="background:' . Auth::user()->color . '">' . Auth::user()->initials . '</span>
                     <div class="pull-right">
                         <small class="message hidden"> Processing... </small>
                         <button class="btn btn-xs btn-warning add-comment-btn">Add Comment</button>
@@ -117,8 +119,8 @@ class ViewHelper
         $count = count($comments);
 
         return '
-            <button type="button" class="btn btn-' . $style . ' btn-xs see-comment-button">
-                <span class="comment-count">' . $count . '</span> Comments
+            <button type="button" class="btn btn-' . $style . ' btn-xs see-comment-button" data-count="' . $count . '">
+                ' . ($count == 0 ? 'Comment' : $count . ' Comments') . '
             </button>';
     }
 

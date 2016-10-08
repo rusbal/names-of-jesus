@@ -142,8 +142,34 @@ $(function(){
         hideComment(this);
     });
 
+    /**
+     * See comment | Add Comment button
+     */
     $('.see-comment-button').on('click', function(){
-        var comments = $(this).parents('div.form-group').find('ul.comments');
+        var comments = $(this).parents('div.form-group').find('ul.comments'),
+            count    = parseInt($(this).data('count')),
+            isShown  = ($(this).text() == 'Hide');
+
+        if (isShown) {
+            setSeeCommentButtonText(this, 0);
+        } else {
+            $(this).text('Hide');
+        }
+
+        showCommentForm(comments, count);
+        toggleComments(comments);
+        if (!isShown) {
+            comments.find('textarea').focus();
+        }
+    });
+
+    var showCommentForm = function(comments, count){
+        if (count == 0) {
+            comments.find('textarea').show();
+        }
+    };
+
+    var toggleComments = function(comments){
         if (comments.is(':visible')) {
             comments.find('li').slideUp('slow', function(){ 
                 if (comments.find('li:visible').length == 0) {
@@ -151,15 +177,19 @@ $(function(){
                 }
             });
         } else {
-            comments
-                .show()
-                .find('li').slideDown('slow');
+            comments.find('li').hide();
+            comments.css('display', 'inline')
+                    .find('li').slideDown('slow');
         }
-    });
+    };
+
+    var setSeeCommentButtonText = function(btn, addVal){
+        var count = parseInt($(btn).data('count')) + addVal;
+        $(btn).text( count == 0 ? 'Comment' : count + ' Comments' );
+    }
 
     var increaseCommentCount = function($this){
-        var commentCount = $($this).closest('.form-group').find('.comment-count');
-        commentCount.html( parseInt(commentCount.html()) + 1 );
+        setSeeCommentButtonText( $($this).closest('.form-group').find('.see-comment-button'), 1 );
     };
 
     var addCommentRow = function($this){
@@ -192,10 +222,11 @@ $(function(){
 
     var ajaxAddComment = function($this) {
 
-        var textarea = $($this).parent().siblings('textarea');
-        var comment_entry = textarea.val();
+        var textarea = $($this).parent().siblings('textarea'),
+            comment_entry = textarea.val();
 
         if (comment_entry == '') {
+            textarea.attr('placeholder', 'Enter your comment here').focus();
             return;
         }
 
@@ -226,13 +257,15 @@ $(function(){
         });
     };
 
+    /**
+     * Submit comment
+     */
     $('.add-comment-btn').on('click', function(){
-        var form = $(this).parent();
+        var form = $(this).parent(),
+            textarea = $(form).siblings('textarea');
 
-        if ($(form).siblings('span.label').is(':hidden')) {
-            $(form).siblings('span.label, textarea').slideDown('slow', function(){
-                $(this).focus();
-            });
+        if (textarea.is(':hidden')) {
+            textarea.show().focus();
         } else {
             ajaxAddComment(this);
         }
