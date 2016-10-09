@@ -26,7 +26,7 @@ class UserProfileRequest extends FormRequest
         return [
             'name'     => 'required|min:3',
             'initials' => 'min:2|max:4',
-            'color'    => 'required|unique:user|color'
+            'color'    => 'required|unique:users|color'
         ];
     }
 }
