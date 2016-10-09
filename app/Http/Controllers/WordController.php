@@ -6,6 +6,7 @@ use App\Name;
 
 use App\Http\Requests;
 use DirectoryIterator;
+use App\ViewHelper;
 
 class WordController extends Controller
 {
@@ -19,12 +20,16 @@ class WordController extends Controller
         $wordDirectory = 'downloads/MSWord';
         $documentFiles = [];
 
-        $dir = new DirectoryIterator(public_path($wordDirectory));
-        foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot()) {
-                $documentFiles[] = $fileinfo->getFilename();
+        if (file_exists($wordDirectory)) {
+            $dir = new DirectoryIterator(public_path($wordDirectory));
+            foreach ($dir as $fileinfo) {
+                if (!$fileinfo->isDot()) {
+                    $documentFiles[] = ViewHelper::getFileInfo($fileinfo->getFilename());
+                }
             }
         }
+
+        $documentFiles = array_reverse($documentFiles);
 
         return view('docs', compact('documentFiles'));
     }

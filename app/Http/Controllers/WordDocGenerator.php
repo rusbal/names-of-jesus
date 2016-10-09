@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Name;
 
 use App\Http\Requests;
@@ -83,9 +84,20 @@ class WordDocGenerator extends Controller
 
     private function savePath($name)
     {
-        $publicDir = "downloads/MSWord";
+        $publicDir = $this->setDirectory();
         $timestamp = time();
-        return "$publicDir/$name.$timestamp.docx";
+        $user      = Auth::user()->initials;
+
+        return "{$publicDir}/{$user}-{$name}.{$timestamp}.docx";
+    }
+
+    private function setDirectory()
+    {
+        $publicDir = 'downloads/MSWord';
+
+        @mkdir('downloads/MSWord', 0755, true);
+
+        return $publicDir;
     }
 }
 

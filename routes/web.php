@@ -48,7 +48,7 @@ Route::delete('ajax/comments/{comment}', 'CommentController@destroy');
  * MS Word Download
  */
 Route::get('docs', 'WordController@index');
-Route::get('docs/new', 'WordDocGenerator');
+Route::post('docs/create', 'WordDocGenerator');
 
 /**
  * Admin

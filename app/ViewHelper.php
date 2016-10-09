@@ -6,6 +6,7 @@
 namespace App;
 
 use Auth;
+use App\User;
 
 class ViewHelper
 {
@@ -30,6 +31,22 @@ class ViewHelper
         $action = ($revision->created_at == $revision->updated_at ? 'created' : 'updated');
 
         return "{$revision->updated_at->format('d.M hA')} $action by {$this->coloredAuthorName($revision)}";
+    }
+
+    static public function getFileInfo($filePath)
+    {
+        $initials = current(explode('-', $filePath, 2));
+        $parts    = explode('.', $filePath);
+        $created_at = $parts[count($parts) - 2];
+        
+        $fileInfo = array(
+            'user'     => User::whereInitials($initials)->first(),
+            'filepath' => $filePath,
+            'time_elapsed' => \Carbon\Carbon::createFromTimestamp($created_at)->diffForHumans(),
+            'is_newly_created' => ((time() - $created_at) / 60) < 2,
+        );
+
+        return $fileInfo;
     }
 
     public function revisionCount($nameId, $userIds)
